@@ -14,6 +14,7 @@ exports = module.exports = function (req, res) {
 		posts: [],
 	};
 
+	console.log(JSON.stringify(req.params))
 	// Load the current post
 	view.on('init', function (next) {
 
