@@ -1,5 +1,7 @@
 extends ../layouts/default
 
+include ../mixins/commenting
+
 block content
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 		article
@@ -27,3 +29,40 @@ block content
 					if data.post.image.exists
 						.image-wrap: img(src=data.post._.image.fit(750,450)).img-responsive
 					!= data.post.content.full
+				//	comments
+				div
+					+comment-form()
+					+comment-thread(comments)
+
+block js
+	script.
+		jQuery(function($) {
+			
+			var comments = $('#comments');
+			var input = $('.comment-field-input');
+			var submit = comments.find('button[type=submit]');
+
+			
+			// Scroll to comments and focus input field
+			function scrollToComments(e) {
+				
+				e.preventDefault();
+				
+				$('html, body').animate({ scrollTop: comments.offset().top }, 250);
+				
+				input.eq(0).focus();
+			}
+			$('[href="#comments"]').click( scrollToComments );
+			
+			
+			
+			// Check if field has content: enable/disable submit. Disable by default
+			submit.attr('disabled','disabled');
+			input.keyup(function() {
+				if ($.trim($(this).val())) {
+					submit.removeAttr('disabled');
+				} else {
+					submit.attr('disabled','disabled');
+				}
+			});
+		});
