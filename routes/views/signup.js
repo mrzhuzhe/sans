@@ -18,8 +18,6 @@ exports = module.exports = function (req, res) {
 	locals.data = {
 	};
 
-	console.log(req);
-
 	locals.formData = req.body || {};
 
 	view.on('post', { action: 'user.create' }, function(next) {

@@ -3,17 +3,23 @@ extends ../layouts/default
 block intro
 	.container
 		h1 About Me
-		h3 a web developer who love Comedy Trekking and Bicyle
-		h3 this blog is about some tricks for Javascript, NodeJs, User behavior tracking and Vulnerability report
+		p a web developer who love Comedy Trekking and Bicyle
+		h1 About starofus
+		p 'star of us' is a quote to china traditional fairytale <br> that told everyone corresponding to a star. <br> even if we live so far away. <br> when someone' star shine mean this guy is in proper. <br> when star is blink mean someone is in trouble
+		p But in fact this is a blog about
+		ul
+			li some tricks for Javascript, NodeJs
+			li user behavior tracking and Vulnerability report
+			li the way i struggle for personal career
 block content
 	.container
 		.row: .col-sm-8.col-md-6
 			h1 Thanks for keep in touch with me
 			p You can send me an email to 
-				a(href='mailto:zhuzhe0815@gmail.com')
+				a.mail(href='mailto:zhuzhe0815@gmail.com')
 					img(src='/images/gmail_icon.png', width='60')
 			p Or find me on socail network
-			p.socail_icons
+			div.socail_icons
 				a(href='https://www.facebook.com/mrzhuzhe')
 					img(src='/images/facebook_icon.png', width='60')
 				a(href='https://twitter.com/MrFuryJo')
