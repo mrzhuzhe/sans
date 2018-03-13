@@ -5,7 +5,7 @@ exports = module.exports = function (req, res) {
 
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
-
+	
 	// Set locals
 	locals.section = 'contact';
 	locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
@@ -21,11 +21,11 @@ exports = module.exports = function (req, res) {
 
 		updater.process(req.body, {
 			flashErrors: true,
-			fields: 'name, email, phone, enquiryType, message',
+			fields: 'name, email, phone, enquiryType, message, quiz001, quiz002, quiz003',
 			errorMessage: 'There was a problem submitting your enquiry:',
 		}, function (err) {
 			if (err) {
-				locals.validationErrors = err.errors;
+				locals.validationErrors = err.detail;
 			} else {
 				locals.enquirySubmitted = true;
 			}

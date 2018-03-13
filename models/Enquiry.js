@@ -21,6 +21,9 @@ Enquiry.add({
 		{ value: 'other', label: 'Something else...' },
 	] },
 	message: { type: Types.Markdown, required: true },
+	quiz001: { type: String },
+	quiz002: { type: String },
+	quiz003: { type: String },
 	createdAt: { type: Date, default: Date.now },
 });
 
@@ -31,7 +34,7 @@ Enquiry.schema.pre('save', function (next) {
 
 Enquiry.schema.post('save', function () {
 	if (this.wasNew) {
-		this.sendNotificationEmail();
+		//	this.sendNotificationEmail();
 	}
 });
 
