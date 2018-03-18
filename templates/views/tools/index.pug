@@ -1,0 +1,14 @@
+extends ../../layouts/default
+block content
+	.container
+		h1 Tool list
+		row: .col-sm-8.col-md-6
+			.form-group
+				label fetch Excel
+				<input type="file" id="excelfile" >
+block js
+	script
+		include script.js
+	<script type="text/javascript" src="js/jszip/jszip.min.js"></script>
+	<script type="text/javascript" src="js/xlsx/xlsx.min.js"></script>
+	<script type="text/javascript" src="js/fileSaver/fileSaver-1.3.6-min.js"></script>
