@@ -47,7 +47,7 @@
 			// iteration3
 			for (var i=0;i<9999;i++){
 				//opt.data.push(opt.number + i)
-				opt.data += (opt.number + i) + "\n";
+				opt.data += (opt.number + i) + "\r\n";
 			}			
 			return opt
 		}
