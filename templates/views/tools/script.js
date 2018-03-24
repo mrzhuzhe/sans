@@ -11,6 +11,7 @@
 		  reader.onload = e => {
 		    var data = e.target.result;
 		    if(!rABS) data = new Uint8Array(data);
+		    downloadloading.style.display = "block";
 		    var workbook = XLSX.read(data, {type: rABS ? 'binary' : 'array'});
 		    this.zip = new JSZip();
 		    /* DO SOMETHING WITH workbook HERE */
@@ -19,8 +20,7 @@
 		  if(rABS) reader.readAsBinaryString(f); else reader.readAsArrayBuffer(f);
 		},
 		fetchData: function(data) {
-			var _emu = ["省份","城市","运营商","号段"];
-			downloadloading.style.display = "block";
+			var _emu = ["省份","城市","运营商","号段"];			
 			//var _result = [];
 			for (var key in data.Sheets) {
 				var sheet = data.Sheets[key];
