@@ -6,6 +6,10 @@ block content
 			.form-group
 				label fetch Excel
 				<input type="file" id="excelfile" >
+			.form-group
+				label result
+				<span style="display:none" id="downloadloading" > loading... </span>
+				<a href="javascript:void(0)" style="display:none" id="downloadexcel" >tels.zip</a>
 block js
 	script
 		include script.js

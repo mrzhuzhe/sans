@@ -1,8 +1,9 @@
 (function(window, undefined){
 	
 	var _fetchExcel = {
-		rABS: true, // true: readAsBinaryString ; false: readAsArrayBuffer
+		rABS: false, // true: readAsBinaryString ; false: readAsArrayBuffer
 		zip: null,	// download zip file obj
+		downloadConteng: null,
 		handleFile: function (e) {
 		  var files = e.target.files, f = files[0];
 		  var rABS = this.rABS;
@@ -19,6 +20,7 @@
 		},
 		fetchData: function(data) {
 			var _emu = ["省份","城市","运营商","号段"];
+			downloadloading.style.display = "block";
 			//var _result = [];
 			for (var key in data.Sheets) {
 				var sheet = data.Sheets[key];
@@ -34,11 +36,19 @@
 					/* _result.push() */
 				})									
 			}
-			this.zip.generateAsync({type:"blob"}).then(function(content) {
+			
+			this.zip.generateAsync({type:"blob"}).then(content => {
 			    // see FileSaver.js
-			    saveAs(content, "tel.zip");
+			    this.downloadConteng = content;
+			    console.log(downloaEexcelBtn)
+			    downloaEexcelBtn.style.display = "block";
+			    downloadloading.style.display = "none";
+			    //saveAs(content, "tel.zip");
 			});
 			//	console.log(_result)
+		},
+		downloadFileHandler: function() {
+			saveAs(this.downloadConteng, "tel.zip");
 		},
 		generrate_txt: function(opt) {
 			opt.number *= 10000;
@@ -57,5 +67,10 @@
 	// bind events
 	var excelfileObj = document.getElementById("excelfile");
 	excelfileObj.addEventListener('change', _fetchExcel.handleFile.bind(_fetchExcel), false);
+
+	var downloaEexcelBtn = document.getElementById("downloadexcel");
+	downloaEexcelBtn.addEventListener('click', _fetchExcel.downloadFileHandler.bind(_fetchExcel), false);
+
+	var downloadloading = document.getElementById("downloadloading");
 
 })(window)
