@@ -8,10 +8,10 @@
 		  var files = e.target.files, f = files[0];
 		  var rABS = this.rABS;
 		  var reader = new FileReader();
+		  downloadloading.style.display = "block";
 		  reader.onload = e => {
 		    var data = e.target.result;
-		    if(!rABS) data = new Uint8Array(data);
-		    downloadloading.style.display = "block";
+		    if(!rABS) data = new Uint8Array(data);		    
 		    var workbook = XLSX.read(data, {type: rABS ? 'binary' : 'array'});
 		    this.zip = new JSZip();
 		    /* DO SOMETHING WITH workbook HERE */
