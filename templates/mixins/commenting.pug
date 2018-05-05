@@ -13,8 +13,8 @@ mixin comment-form(action)
 					button(type='submit').btn.btn-primary Post Comment
 				else
 					ul.list-inline
-						li: a(href='/keystone/signin').btn.btn-sm.btn-primary Sign in to Comment
-						li: a(href='/signup').btn.btn-sm.btn-primary Or Sign up 
+						li: a(href='/keystone/signin', onclick="hmt.push(['_trackEvent', 'signin', 'click', 'BottomSignIn'])").btn.btn-sm.btn-primary Sign in to Comment
+						li: a(href='/signup', onclick="hmt.push(['_trackEvent', 'signin', 'click', 'bottomSignUp'])").btn.btn-sm.btn-primary Or Sign up 
 
 mixin comment-post(comment)
 	if comment.author
