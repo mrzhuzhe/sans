@@ -43,6 +43,10 @@ exports = module.exports = function (app) {
 	app.get('/contactme', routes.views.contactme);
 	app.get('/tools', routes.views.tools);
 	app.all('/contact', routes.views.contact);
+	//	api test
+	app.get('/api',  function (req, res) {
+	  res.send({"a": 1})
+	});
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

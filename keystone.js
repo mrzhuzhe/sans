@@ -14,7 +14,7 @@ keystone.init({
 	'brand': 'sans',
 
 	'less': 'public',
-	'static': 'public',
+	'static': ['public','client'],
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'pug',
