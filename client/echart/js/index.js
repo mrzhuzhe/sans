@@ -6,7 +6,9 @@ var _main = {
   },
   initChart (opt) {
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
+    var usdChart = echarts.init(document.getElementById('usd'));
+    var btcChart = echarts.init(document.getElementById('btc'));
+
     var series = [];
     for (var k in opt.list) {
       series.push({
@@ -18,15 +20,15 @@ var _main = {
     }
 
     // 指定图表的配置项和数据
-    var option = {
+    var usdOption = {
         title: {
-            text: '比特币&美元走势'
+            text: '美元'
         },
         tooltip: {
             trigger: 'axis'
         },
         legend: {
-            data: this.data.legend
+            data: this.data.legend.filter( e => { return /usd/.test(e) })
         },
         grid: {
             left: '3%',
@@ -47,11 +49,48 @@ var _main = {
         yAxis: {
             type: 'value'
         },
-        series
+        series: series.filter(e => {
+          return /usd/.test(e.name)
+        })
     };
-    console.log(option)
+
+    var btcOption = {
+        title: {
+            text: '比特币'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: this.data.legend.filter( e => { return /btc/.test(e) })
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: this.data.label
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: series.filter(e => {
+          return /btc/.test(e.name)
+        })
+    };
+
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    usdChart.setOption(usdOption);
+    btcChart.setOption(btcOption);
   },
   init () {
     _utils.get('http://api.kii.io/', {} , data => {
