@@ -1,22 +1,30 @@
 {
-  "name": "sans",
-  "version": "0.0.0",
+  "name": "@keystonejs/example-projects-starter",
+  "description": "An example KeystoneJS project with a User list and Authentication.",
   "private": true,
-  "dependencies": {
-    "async": "2.1.4",
-    "dotenv": "4.0.0",
-    "keystone": "4.0.0-beta.5",
-    "keystone-email": "1.0.5",
-    "lodash": "^4.13.1",
-    "pug": "2.0.0-beta11"
-  },
-  "devDependencies": {
-    "eslint": "3.15.0",
-    "eslint-config-keystone": "3.0.0",
-    "eslint-plugin-react": "^5.1.1"
+  "version": "6.0.1",
+  "author": "The KeystoneJS Development Team",
+  "repository": "https://github.com/keystonejs/keystone-5/tree/master/packages/create-keystone-app/example-projects/starter",
+  "homepage": "https://github.com/keystonejs/keystone-5",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
   },
   "scripts": {
-    "lint": "eslint .",
-    "start": "node keystone.js"
+    "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
+    "build": "cross-env NODE_ENV=production keystone build",
+    "start": "cross-env NODE_ENV=production keystone start",
+    "create-tables": "cross-env CREATE_TABLES=true keystone create-tables"
+  },
+  "dependencies": {
+    "@keystonejs/adapter-mongoose": "^11.1.0",
+    "@keystonejs/app-admin-ui": "^7.4.1",
+    "@keystonejs/app-graphql": "^6.2.2",
+    "@keystonejs/auth-password": "^6.0.2",
+    "@keystonejs/fields": "^22.0.1",
+    "@keystonejs/keystone": "^19.2.1",
+    "cli-spinners": "^2.5.0",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1"
   }
 }
