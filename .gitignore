@@ -2,3 +2,5 @@ node_modules
 template/.DS_Store
 .DS_Store
 donotsubmit
+app/.next/
+dist

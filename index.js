@@ -4,7 +4,9 @@ const { Text, Checkbox, Password, Relationship } = require('@keystonejs/fields')
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const initialiseData = require('./initial-data');
-const express = require('express');
+const { NextApp } = require('@keystonejs/app-next');
+const { StaticApp } = require('@keystonejs/app-static');
+//  const express = require('express');
 
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 const PROJECT_NAME = 'sans';
@@ -18,6 +20,7 @@ const PostCategorySchema = require('./lists/PostCategory.js');
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
+  cookieSecret: "e06ffac1e9ca300bf33bc26574c0cf766142d093be286ec156d1b19da7e97627"
 });
 
 
@@ -29,7 +32,7 @@ keystone.createList('Post', PostsSchema);
 keystone.createList('User', UsersSchema);
 keystone.createList('PostCategory', PostCategorySchema);
 
-
+/*
 class CustomApp {
   prepareMiddleware({ keystone, dev, distDir }) {
     const middleware = express();
@@ -39,7 +42,7 @@ class CustomApp {
     return middleware;
   }
 }
-
+*/
 // customList e
 
 const authStrategy = keystone.createAuthStrategy({
@@ -54,9 +57,14 @@ module.exports = {
     new GraphQLApp(),
     new AdminUIApp({
       name: PROJECT_NAME,
-      enableDefaultRoute: true,
+      //  enableDefaultRoute: true,
       authStrategy,
     }),
-    new CustomApp(),
+    new StaticApp({
+      path: '/',
+      src: 'public',
+      fallback: 'index.html',
+    }),
+    new NextApp({ dir: 'app' }),
   ],
 };
