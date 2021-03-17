@@ -20,7 +20,6 @@ const PostCategorySchema = require('./lists/PostCategory.js');
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
-  cookieSecret: "e06ffac1e9ca300bf33bc26574c0cf766142d093be286ec156d1b19da7e97627"
 });
 
 
