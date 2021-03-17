@@ -1,3 +1,7 @@
+# sans blog
+
+本地需要先启动mongodb 记得要关闭 brew services start mongodb-community
+
 # KeystoneJS Starter Template
 
 You've created a KeystoneJS project! This project contains a simple list of users and an admin application (`localhost:3000/admin`) with basic authentication.
