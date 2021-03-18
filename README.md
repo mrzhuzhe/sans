@@ -1,17 +1,27 @@
 # sans blog
 
-本地需要先启动mongodb 记得要关闭 brew services start mongodb-community
+1. 本地需要先启动mongodb 记得要关闭 brew services start mongodb-community
+2. 项目中使用了next `new NextApp({ dir: 'app' })`
+3. 有个bug nextapp 必须在 static app之后 不然staticapp 会不生效
 
-# KeystoneJS Starter Template
+## 安装
 
-You've created a KeystoneJS project! This project contains a simple list of users and an admin application (`localhost:3000/admin`) with basic authentication.
+```
+  npm i  
+```
 
-## Running the Project.
+## 链接地址
 
-To run this project first run `npm install`. Note: If you generated this project via the Keystone cli step this has been done for you \\o/.
+```
+    //  后台
+    http://localhost:3000/admin/
+    //  graphql api
+    http://localhost:3000/admin/api
+    //  graphiql 
+    http://localhost:3000/admin/graphiql
+```
 
-Once running, the Keystone Admin UI is reachable via `localhost:3000/admin`.
+## 问题
 
-## Next steps
-
-This example has no front-end application but you can build your own using the GraphQL API (`http://localhost:3000/admin/graphiql`).
+1. 在linux 下装依赖时 存在一个 sharp 越权问题
+2. 在linux下跑webpack编译，速度极慢，可能要换成中间有个编译机
