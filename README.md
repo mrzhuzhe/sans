@@ -24,4 +24,5 @@
 ## 问题
 
 1. 在linux 下装依赖时 存在一个 sharp 越权问题
-2. 在linux下跑webpack编译，速度极慢，可能要换成中间有个编译机
+2. 在linux下跑webpack编译，速度极慢，可能要换成中间有个编译机 
+可用云编译处理：https://cloud.google.com/build/docs/concepts
