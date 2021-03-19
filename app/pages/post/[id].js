@@ -50,7 +50,7 @@ function post({ data }) {
                 <a href="/index" className="w3-bar-item w3-button">Home</a>
                 <a href="/list" className="w3-bar-item w3-button w3-light-grey">Works</a>
                 <a href="https://github.com/mrzhuzhe" className="w3-bar-item w3-button">Github</a>
-                <a href="#contact" className="w3-bar-item w3-button">Contact</a>
+                <a href="/contact" className="w3-bar-item w3-button">Contact</a>
                 </div>
             </div>
             </header>
