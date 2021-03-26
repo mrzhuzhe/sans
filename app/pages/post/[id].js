@@ -1,5 +1,6 @@
 // graphql https://nextjs.org/docs/basic-features/pages
-  
+import ReactMarkdown from 'react-markdown'
+
 export async function getServerSideProps(context) {
     // Fetch data from external API
     const GET_ONE_POST = `query getOnePost($id: ID!) {
@@ -61,7 +62,9 @@ function post({ data }) {
                     <div className="date">{_post.publishedDate}</div>
                     <p className="bref">{_post.brief}</p>
                     <div className="extended">
-                      { _post.extended }
+                      <ReactMarkdown>
+                        { _post.extended }
+                      </ReactMarkdown>
                     </div>
                     <div className="tags">{ _post.categories.map((item, index) => (
                         <span key={index}> { item.name} </span>
