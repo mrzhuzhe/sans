@@ -17,8 +17,8 @@
  */
 export async function getServerSideProps() {
     // Fetch data from external API
-    const GET_ALL_POSTS = `query getAllPosts($orderBy: String) {
-        allPosts(orderBy: $orderBy) {
+    const GET_ALL_POSTS = `query getAllPosts($sortBy: [SortPostsBy!] ) {
+        allPosts(sortBy: $sortBy) {
         id
         title
         publishedDate
@@ -37,7 +37,8 @@ export async function getServerSideProps() {
         body: JSON.stringify({
             query: GET_ALL_POSTS,
             variables: {
-            orderBy: "publishedDate"
+                "orderBy": "publishedDate",
+                "sortBy": "publishedDate_DESC"
             }
         }),
     })
@@ -66,8 +67,8 @@ function list({ data }) {
             <div className="w3-row-padding" >
                 <div className="postlist">
                     {  data.allPosts.map((e, i) => (
-                        <a href={"/post/"+ e.id}>
-                            <div className="item post" key={i}>
+                        <a href={"/post/"+ e.id} key={i}>
+                            <div className="item post" >
                                 <h3>{e.title}</h3>
                                 <div className="date">{e.publishedDate}</div>
                                 <p className="bref">{e.brief}</p>
