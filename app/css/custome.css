@@ -7,8 +7,9 @@ h1 {letter-spacing: 6px}
 .index-main .list .item { padding: 15px; margin-bottom:10px; border-bottom: 1px dashed #e1e1e1; }
 footer .small { font-size: 12px; color: #ccc; }
 .index-img img { display: block; margin: 0 auto 128px; }
-.postlist,.postdetail {margin-bottom: 128px;}
+.postlist, .postdetail {margin-bottom: 128px;}
 .postlist .item { padding: 15px 0 25px; border-bottom: 1px dashed #e1e1e1;}
 .post .date { font-size: 14px; color:#999; }
 .post .extended { padding: 10px 0 20px; word-break: break-all; }
 .post .tags span { padding: 4px 8px; background: #e1e1e1; margin-right: 10px; border-radius: 5px; } 
+.DisqusComp { padding: 0 0 128px;}
