@@ -1,5 +1,6 @@
 // graphql https://nextjs.org/docs/basic-features/pages
 import ReactMarkdown from 'react-markdown'
+import DisqusBox from '../../components/disqus'
 
 export async function getServerSideProps(context) {
     // Fetch data from external API
@@ -41,6 +42,7 @@ export async function getServerSideProps(context) {
 
 function post({ data }) {
     let _post = data.Post
+
     return <div>
         <div className="w3-content" style={{ maxWidth:1500 + "px" }}>
             <header className="w3-panel w3-center w3-opacity" style={{ padding: "128px 16px" }}>
@@ -70,6 +72,11 @@ function post({ data }) {
                         <span key={index}> { item.name} </span>
                     ))}</div>
                 </div>
+                
+              <div class="DisqusComp">      
+                <DisqusBox />
+              </div>
+            
             </div>  
         </div>
         <footer className="w3-container w3-padding-64 w3-light-grey w3-center w3-large">   
@@ -78,5 +85,6 @@ function post({ data }) {
         </footer>
     </div>
 }
+
 
 export default post

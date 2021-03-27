@@ -18,6 +18,7 @@ const UsersSchema = require('./lists/Users.js');
 const PostCategorySchema = require('./lists/PostCategory.js');
 
 const keystone = new Keystone({
+  cookie: { secure: false },
   adapter: new Adapter(adapterConfig),
   onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
 });
