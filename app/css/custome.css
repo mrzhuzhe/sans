@@ -13,3 +13,4 @@ footer .small { font-size: 12px; color: #ccc; }
 .post .extended { padding: 10px 0 20px; word-break: break-all; }
 .post .tags span { padding: 4px 8px; background: #e1e1e1; margin-right: 10px; border-radius: 5px; } 
 .DisqusComp { padding: 0 0 128px;}
+.post .extended img { max-width: 80%; }
