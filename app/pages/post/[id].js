@@ -1,6 +1,7 @@
 // graphql https://nextjs.org/docs/basic-features/pages
 import ReactMarkdown from 'react-markdown'
 import DisqusBox from '../../components/disqus'
+import gfm from 'remark-gfm'
 
 export async function getServerSideProps(context) {
     // Fetch data from external API
@@ -64,7 +65,7 @@ function post({ data }) {
                     <div className="date">{_post.publishedDate}</div>
                     <p className="bref">{_post.brief}</p>
                     <div className="extended">
-                      <ReactMarkdown>
+                      <ReactMarkdown plugins={[gfm]}>
                         { _post.extended }
                       </ReactMarkdown>
                     </div>
@@ -73,7 +74,7 @@ function post({ data }) {
                     ))}</div>
                 </div>
                 
-              <div class="DisqusComp">      
+              <div className="DisqusComp">      
                 <DisqusBox />
               </div>
             
