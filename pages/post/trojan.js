@@ -5,7 +5,7 @@ export async function getStaticProps() {
   const data = {
       data: {
         Post: {
-                  id: "trojan.html",
+                  id: "trojan",
                   title: "Trojan部署中遇到的进程权限问题",
                   publishedDate: "2021-03-26",
                   brief: "最近把站点的代理从v2ray 换成trojan ，配置了nginx，代理证书等，但是在配置证书的访问权限时， 遇到了一个子进程权限的问题",

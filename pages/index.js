@@ -6,10 +6,10 @@ function HomePage() {
         <h1>你好呀，我是Sans</h1>    
         <div className="w3-padding-32">
           <div className="w3-bar w3-border">
-            <a href="/index.html" className="w3-bar-item w3-button w3-light-grey">Home</a>
-            <a href="/list.html" className="w3-bar-item w3-button">Works</a>
+            <a href="/index" className="w3-bar-item w3-button w3-light-grey">Home</a>
+            <a href="/list" className="w3-bar-item w3-button">Works</a>
             <a href="https://github.com/mrzhuzhe" className="w3-bar-item w3-button">Github</a>
-            <a href="/contact.html" className="w3-bar-item w3-button">Contact</a>
+            <a href="/contact" className="w3-bar-item w3-button">Contact</a>
           </div>
         </div>
       </header>

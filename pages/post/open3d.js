@@ -5,7 +5,7 @@ export async function getStaticProps() {
     const data = {
         data: {
           Post: {
-                    id: "open3d.html",
+                    id: "open3d",
                     title: "open3d实践",
                     publishedDate: "2021-03-28",
                     brief: "open3d中的一些实践，主要是将真实世界中环境通过intel realsense扫描重建成3d网格的相关内容",
