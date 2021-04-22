@@ -1,6 +1,6 @@
 // graphql https://nextjs.org/docs/basic-features/pages
 import ReactMarkdown from 'react-markdown'
-import DisqusBox from '../../components/disqus'
+import DisqusBox from '../../../components/disqus'
 import gfm from 'remark-gfm'
 
 export async function getServerSideProps(context) {

@@ -2,13 +2,22 @@ export async function getStaticProps() {
     
     const data = {
         data: {
-            allPosts: [{
-            id: "123",
-            title: "title",
-            publishedDate: "2021-4-22",
-            brief: "brief",
-            categories: [{name: "cat"}]  
-            }]
+            allPosts: [
+                {
+                    id: "trojan.html",
+                    title: "Trojan部署中遇到的进程权限问题",
+                    publishedDate: "2021-03-26",
+                    brief: "最近把站点的代理从v2ray 换成trojan ，配置了nginx，代理证书等，但是在配置证书的访问权限时， 遇到了一个子进程权限的问题",
+                    categories: [{name: "代理"}]  
+                },
+                {
+                    id: "open3d.html",
+                    title: "open3d实践",
+                    publishedDate: "2021-03-28",
+                    brief: "open3d中的一些实践，主要是将真实世界中环境通过intel realsense扫描重建成3d网格的相关内容",
+                    categories: [{name: "open3d"}]  
+                }
+            ]
         }        
     }
     // Pass data to the page via props
@@ -23,10 +32,10 @@ function list({ data }) {
             <h1>你好呀，我是Sans</h1>    
             <div className="w3-padding-32">
                 <div className="w3-bar w3-border">
-                <a href="/index" className="w3-bar-item w3-button">Home</a>
-                <a href="/list" className="w3-bar-item w3-button w3-light-grey">Works</a>
+                <a href="/index.html" className="w3-bar-item w3-button">Home</a>
+                <a href="/list.html" className="w3-bar-item w3-button w3-light-grey">Works</a>
                 <a href="https://github.com/mrzhuzhe" className="w3-bar-item w3-button">Github</a>
-                <a href="/contact" className="w3-bar-item w3-button">Contact</a>
+                <a href="/contact.html" className="w3-bar-item w3-button">Contact</a>
                 </div>
             </div>
             </header>
