@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "kidney",
+                    title: "kaggle hack the kidney 比赛总结",
+                    publishedDate: "2021-05-11",
+                    brief: "实验记录，未实现的记录，获胜方法，总结，后面的方向",
+                    categories: [{name: "kaggle"}]  
+                },
+                {
                     id: "trojan",
                     title: "Trojan部署中遇到的进程权限问题",
                     publishedDate: "2021-03-26",
