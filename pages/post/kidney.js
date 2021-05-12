@@ -95,7 +95,7 @@ function post({ data }) {
                       <p>后面我会在我的实验记录里对以上问题分别补充说明</p>
                       <p>&nbsp;</p>
                       <h3>我的实验记录</h3>
-                      <p>链接 <a href="###" target="_blank">github</a> 总结如下</p>
+                      <p>链接 <a href="https://github.com/mrzhuzhe/pepper/blob/master/kaggle-beginner/compete/hpa.md" target="_blank">github</a> 总结如下</p>
                       <ul>
                         <li>【不同分割架构】测试了unet linknet 感觉分数其实差不多, 另外我观察了其他人fpn的模型感觉也差不多</li>
                         <li>【不同backbone】测试了efficientnet b0 b2 b4 感觉backbone容量<strong>不可小于图像分辨率</strong>会造成严重的减分，但是似乎可以大于图像分辨率，当然参数提升也会造成过拟合和巨大的算力开销问题</li>
