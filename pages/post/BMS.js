@@ -96,7 +96,8 @@ function post({ data }) {
                     <p>除了训练更慢了，这个版本更让我崩溃的是infer更慢了，训练4个epoch动则10小时以上</p>
                     <p>acc 很低的原因可能是因为没有上游任务</p>
                     <p>vit这种超级大模型确实非常难调试, 搞到最后我都没有一个拿得出手的cv结果去提交</p>
-
+                    <p><br /></p>
+                    
                     <h3>百花齐放的Top solution</h3>
                     
                     <p>如开头所说，top solution 有 lstm/ocr+nn/rdkit+nn 三个大方向，再依次有各种小的idea，有好几十种baseline</p>
@@ -105,8 +106,30 @@ function post({ data }) {
                         <li>1. 青蛙哥hengk 的vit tnt + beam search + rdkit normalize https://www.kaggle.com/c/bms-molecular-translation/discussion/243766</li>
                         <li>2. 仅使用4m参数纯colab 对原子和角度建模 https://www.kaggle.com/c/bms-molecular-translation/discussion/243917</li>
                         <li>3. 使用ocr 对分子结构进行重建 https://www.kaggle.com/c/bms-molecular-translation/discussion/243809</li>
+                        <li>4. 我记得有一个人用rdkit生成了几千万张图片让vit从头开始训练，不用上游任务的，但是找不到了</li>
                       </ul>
                     </p>
+                    <p><br /></p>
+
+                    <h3>总结</h3>
+                    <p>
+                      <ul>
+                        <li>1. transformer 的上游任务训练开销真是大。infer更慢</li>
+                        <li>2. 如果没有上游任务，似乎下游任务精度很受影响</li>
+                        <li>3. cnn 的 embedding （backbone） 可以接 transformer 的decoder </li>
+                        <li>4. attention 和 convolution 其实都是一种结构化建模的手段（cvpr 2021 revolution in geometry representing） </li>
+                        <li>5. attention 可以看作一种超长距离的 lstm </li>
+                        <li>6. 比赛结果不行要快速调整心态，提升效率该干嘛干嘛，好奇心最重要</li>
+                      </ul>
+                    </p>
+
+                    <h3>实验记录</h3>
+                    <p>https://github.com/mrzhuzhe/pepper/blob/master/kaggle-beginner/compete/MolecularTranslation.md</p>
+                    <p>回头还是要有一个实验计划，早日脱离盲目实验的阶段</p>
+                    <p><br /></p>
+                    <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1624534472/blog/sans/E2aOhQ3VkAIfpmi.jpg" width="300" /></p>
+                    <p><br /></p>
+
 
                     </div>
                     <div className="tags">{ _post.categories.map((item, index) => (
