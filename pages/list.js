@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "BMS",
+                    title: "BMS分子结构图像翻译比赛总结",
+                    publishedDate: "2021-06-24",
+                    brief: "Bristol-Myers Squibb – Molecular Translation，分子结构图像转文字比赛总结",
+                    categories: [{name: "kaggle", name: "vit", name: "transformer" }]  
+                },
+                {
                     id: "kidney",
                     title: "kaggle hack the kidney 比赛总结",
                     publishedDate: "2021-05-11",
