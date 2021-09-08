@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "covid19",
+                    title: "SIIM covid19比赛总结",
+                    publishedDate: "2021-08-09",
+                    brief: "新冠肺炎病灶识别和诊断比赛总结",
+                    categories: [{name: "kaggle", name: "cv"}]  
+                },
+                {
                     id: "BMS",
                     title: "BMS分子结构图像翻译比赛总结",
                     publishedDate: "2021-06-24",
