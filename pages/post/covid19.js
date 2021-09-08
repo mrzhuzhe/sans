@@ -149,7 +149,9 @@ f6293b1c49e2_image, opacity 0.24799  688 1416 1347 1976 opacity 0.21650  661 100
                             </ul>
                             </p>                            
                         <p>
+                            <br />
                             <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1631099778/E1LJjMrVEAEwrgh_owddn8.jpg" width="400"/>
+                            <br />
                         </p>
                     </div>
                     <div className="tags">{ _post.categories.map((item, index) => (
