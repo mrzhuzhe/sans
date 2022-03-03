@@ -25,7 +25,8 @@ function post({ data }) {
 
     return <div>
         <div className="w3-content" style={{ maxWidth:1500 + "px" }}>
-            
+            <script src="/libs/tfjs.js"></script>
+            <script src="/libs/speech-commands.js"></script>
             <Header />
             
             { /* Context */ }
@@ -36,13 +37,23 @@ function post({ data }) {
                     <div className="date">{_post.publishedDate}</div>
                     <p className="bref">{_post.brief}</p>
                     <div className="extended">
-                        
+
+                    <div><h3 id="console" className='red'></h3></div>
+                    <p>Refferrence: </p>
+                    <ul>
+                      <li>https://www.tensorflow.org/js/tutorials/transfer/audio_recognizer </li>
+                      <li>https://github.com/tensorflow/tfjs-models/tree/master/speech-commands</li>
+                    </ul>
+
+                    <p>you can say </p>
+                    <p>"zero" to "nine", "up", "down", "left", "right", "go", "stop", "yes", "no"</p>
+                    <p>then it will be print on this page</p>
                     </div>
                     
                     <KeywordsTags tagList={ _post.categories } />
                     
                 </div>
-                
+              <script src="/tfjs-speech/index.js"></script>
               <div className="DisqusComp">      
                 <DisqusBox />
               </div>
