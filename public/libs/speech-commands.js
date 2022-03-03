@@ -1,4 +1,4 @@
-__MODEL_URL_PREFIX__ = "https//starofus.xyz/libs"
+__MODEL_URL_PREFIX__ = "https://starofus.xyz/libs"
 /**
     * @license
     * Copyright 2021 Google LLC. All Rights Reserved.
