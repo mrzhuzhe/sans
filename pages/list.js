@@ -2,7 +2,13 @@ export async function getStaticProps() {
     
     const data = {
         data: {
-            allPosts: [
+            allPosts: [{
+                    id: "tfjs-speech",
+                    title: "online speech recognize",
+                    publishedDate: "2022-3-3",
+                    brief: "a simple demo of tensorflowjs speech recognizer",
+                    categories: [{name: "tensorflowjs" }]  
+                },
                 {
                     id: "covid19",
                     title: "SIIM covid19比赛总结",
