@@ -22,11 +22,18 @@ function HomePage() {
               <a href="#galley"><img alt="anonyDog" src="/static/anonyDog.jpeg" style={{ width:120 + "px" }} /></a>
             </div>                
             <div className="item" name="works" id="works" >      
+              <h1>已写的文章：</h1>
+              <ul>
+                <li>Impala多线程强化学习总结（其一）</li>
+                <li>open3d实践的总结</li>              
+              </ul>
+
+              <br></br>
+
               <h1>待写的文章：</h1>
               <ul>
                 <li>特征值和PCA</li>
                 <li>抽象代数和拓扑学</li>
-                <li>open3d实践的总结</li>
                 <li>流加密，https和tls伪装的分析</li>
               </ul>
             </div>
@@ -50,7 +57,7 @@ function HomePage() {
       </div>    
       { /* Footer */ }
       <footer className="w3-container w3-padding-64 w3-light-grey w3-center w3-large">   
-        <p>2021 No right recived</p>
+        <p>2021 to future, No right recived</p>
         <p className="small">太陽系を抜け出して平行線で交わろう</p>
       </footer>
     </div>

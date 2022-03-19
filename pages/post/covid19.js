@@ -166,7 +166,7 @@ f6293b1c49e2_image, opacity 0.24799  688 1416 1347 1976 opacity 0.21650  661 100
             </div>  
         </div>
         <footer className="w3-container w3-padding-64 w3-light-grey w3-center w3-large">   
-        <p>2021 No right recived</p>
+        <p>2021 to future, No right recived</p>
         <p className="small">太陽系を抜け出して平行線で交わろう</p>
         </footer>
     </div>

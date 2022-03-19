@@ -1,0 +1,218 @@
+import DisqusBox from '../../components/disqus'
+import Header from '../../components/header'
+import Footer from '../../components/footer'
+import KeywordsTags from '../../components/keywordsTags'
+import { sortedLastIndex } from 'lodash'
+
+export async function getStaticProps() {
+    
+  const data = {
+      data: {
+        Post: {
+                  id: "impala",
+                  title: "Impala多线程强化学习总结（其一）",
+                  publishedDate: "2022-03-19",
+                  brief: "在visdoom环境中利用多线程算法impala加速强化学习，用有限的家用机器资源训练出实战级别的rl agent",
+                  categories: [{name: "reinforcement-learning" }]  
+              }
+      }        
+  }
+  // Pass data to the page via props
+  return { props: data }
+}
+
+function post({ data }) {
+    let _post = data.Post
+
+    return <div>
+        <div className="w3-content" style={{ maxWidth:1500 + "px" }}>
+            
+            <Header />
+            
+            { /* Context */ }
+            
+            <div className="w3-row-padding" >
+                <div className="post postdetail" >
+                    <h3 className="title" >{_post.title}</h3>
+                    <div className="date">{_post.publishedDate}</div>
+                    <p className="bref">{_post.brief}</p>
+                    <div className="extended">
+                        <p></p>
+                        <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647681103/impala/doom_window.jpg"/></p>
+                        <p></p>
+                        <h3 className='code'>本次的代码：<a href='https://github.com/mrzhuzhe/ViZDoom/tree/master/mytest' target="_blank">https://github.com/mrzhuzhe/ViZDoom/tree/master/mytest</a></h3>
+                        <p></p>
+                        <h3>1. 动机：</h3>                        
+                        <p></p>
+                        <ul>
+                          <li>1. 训练一个实战级别的 强化学习 agent ， 用这个pipline为baseline方便以后参加比赛 </li>
+                          <li>2. 强化学习可以在自监督部分对比计算机视觉，计算机视觉的residul连接和注意力也是rl编码器部分不可缺的模块，可以互相加深理解 </li>
+                          <li>3. 这个pipline要也能够用在工业生产的机器人控制上</li>
+                        </ul>
+                        <p></p>
+
+                        <h3>2. 目标：</h3>
+                        <p></p>
+                        <ul>
+                          <li>1. 【通用】不能使用过多的trick和特征工程 </li>
+                          <li>2. 【快】要训练的尽可能的快 </li>
+                          <li>3. 【性能】agent在任务上的稳定性和性能上限要能够达到sota</li>
+                          <li>4. 【self play】要尽量使用self play 【TODO】</li>
+                        </ul>
+                        <p><strong>目前的进展：</strong></p>
+                        <ul>
+                          <li>1. 【通用】在vizdoom等任务上，输入只使用了<stron className="green">"160x100的游戏图像"</stron> + <stron className="green">"游戏面板信息"</stron>(目前只有2个：生命值和弹药量) </li>
+                          <li>2. 【快】1e7 step 只需 2 小时 30分 <em className="yellow"><strong>注：</strong>此处硬件配置见 “4. 实验设计” </em></li>
+                          <li>3. 【性能】在battle1 地图中 1e7 step 已经学会 “向敌人开枪” "拾取医药箱“ ”拾取子弹“ 等瓶颈， 并且探索到了 ”躲避“ ”堵口“ “360度旋转” ”冲“ 等多种策略</li>
+                        </ul>
+                        <p></p>
+
+                        <h3>3. 视频演示：</h3>
+                        <p>多样化策略：（输入只有图像）</p>
+                        <ul>
+                          <li>1. 躲藏</li>
+                          <li>2. 转圈</li>
+                          <li>3. 堵口</li>
+                        </ul>
+                        <p>输入 = 图像 + 游戏面板信息</p>
+                        <ul>
+                          <li>1. 对拾取弹药和医药箱做0.5的奖励</li>
+                        </ul>
+                        <p></p>
+
+                        <h3>4. 相关工作：</h3>
+                        <p># 最初看到kaggle上 <a href='https://www.kaggle.com/c/lux-ai-2021' target="_blank">lux-ai2021比赛</a>中的冠军方案就是基于Impala，他的思路是</p>
+                        <ul>
+                          <li>1. 用Impala scale up 和加速训练 <a href='https://arxiv.org/pdf/1802.01561.pdf' target="_blank">impala 论文</a> , 具体实现用的是 <a href="https://github.com/facebookresearch/torchbeast" target="_blank">torchbeast</a> 
+                          </li>
+                          <li>2. 参照alphastar(因为lux这个比赛其实和starcraft挺像)，也加入了td-lambda和upgo的辅助loss
+                            <br>
+                            </br>这个可以参照alphastar论文 <a href='https://deepmind.com/blog/article/alphastar-mastering-real-time-strategy-game-starcraft-ii' target="_blank">deepmind alphastar</a>
+                            <br>
+                            </br>
+                            【TODO】这里 td-lambda 起到的作用应该是 critical loss 计算时考虑全局而非原本 vtrace 只考虑比较好的rollout
+                            <br>
+                            </br>
+                            【TODO】upgo 是类似ppo防止优化时方差太大 
+                          </li>
+                          <li>3. 先训练层数少的小模型，再用teacher kl散度把训练好的小模型向大模型蒸馏</li>
+                          <li>4. 用 resnet 等cv的sota 替换原本的特征编码器</li>
+                        </ul>
+
+                        <p># 更新的方案</p>
+                        <p>其实现在还有一些基于vtrace的更新的方案，速度和减少开销在impala上还有很大的提升，例如</p>
+                        <ul>                          
+                          <li>1.dd-ppo https://arxiv.org/abs/1911.00357 【TODO】</li>
+                          <li>2.sample factory https://github.com/alex-petrenko/sample-factory 综合了最新的方案，速度达到了最快</li>
+                          <li>3.seed rl https://github.com/google-research/seed_rl 修复了impala的几个不合理的地方</li>
+                          <li>4.r2d2 https://openreview.net/pdf?id=r1lyTjAqYX  利用lstm来进行q-learn过程</li>
+                        </ul>
+                        <p></p>
+
+                        <h3>5.impala的技术选型和意义：</h3>
+                        <p className='strong'>impala的整体结构</p>
+                        <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/c_scale,w_800/v1647677690/impala/whole.png"/></p>
+                        <ul>                          
+                          <li>on policy/off policy: 目前impala的实现都是用多线程产生replay buffer，都是off policy的</li>
+                          <li>q-learning/actor-critic: 采用基于vtrace的 actor critic policy梯度法</li>
+                           
+                        </ul>
+                        <p></p>
+
+                        <p className='strong'>3个LOSS的意义：</p>
+                        <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647677690/impala/impala_loss.png"/></p>
+                        <ul>
+                          <li> policy_pg_loss 鼓励收益大的选择概率大</li> 
+                          <li> entropy_loss 这个loss是一个负系数loss 所以优化方向为 尽可能的熵变大（更倾向于探索），但是随着训练熵本身会不变小（越来越保守），所以如果policy loss优化不下去了，熵就会变大，鼓励探索</li>
+                          <li> baseline_loss critic_loss 【TODO】</li>    
+                        </ul>
+                        <p></p>
+
+                        <p className='strong'>vtrace的作用和意义</p>
+                        <ul>                          
+                          <li><strong>actor-ctric在off-policy情况下的不足：</strong> 如果仅使用原始的replay buffer 因为 actor critic 中 actor 和 critic 中只有ctritic 在学习， <span className='crimson'>actor的策略是滞后的</span>，如果全学习所有actor就会导致学习引入大量低质量样本的噪声
+                          <br/>
+                          visdoom battle 环境下 PPO 的学习曲线：抖动更小 1M step <span className='crimson'>55</span>分钟
+                          <br/>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647679518/impala/ppo_plot.png"/>
+                          <br/>
+                          Impala Off policy actor-critic的学习曲线：<span className='crimson'>抖动更大</span> 1M step <span className='crimson'>18</span>分钟
+                          <br/>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647679518/impala/impala_plot.png"/>
+                          </li>
+                          <li><strong>general advance estimate： </strong>所以vtrace对训练样本进行了一次重要采样，这个操作相当于只学习actor中表现比较好的情况</li>
+                        </ul>
+                        <p></p>
+
+                        <p className='strong'>硬件环境</p>
+                        <ul>
+                          <li> 使用gpu actor时: 2核cpu 18g内存 7g显存 cuda idle占用60%左右  <em className='yellow'>这里gpu存在一个内存占用过高的问题seed rl中有解决方案</em></li>
+                          <li> 使用cpu actor时: 8核cpu 8g内存 7g显存 cuda idle占用10%左右  <em className='yellow'>训练速度其实和使用gpu一样</em></li>
+                        </ul>
+                        <p></p>
+
+                        <h3>6. 实验：</h3>
+                        <p></p>
+                        <p>实验设计（已测）：</p>
+                        <p></p>
+                        <ul>
+                          <li>1. 【单线程/多线程】: 对比了PPO和Impala训练相同任务的情况，ppo慢且稳定，impala快但是波动大</li>
+                          <li>2. 【LSTM层】，因为瓶颈不在这，所以对速度稳定性收敛速度都影响不大 </li>
+                          <li>3. 【td-lambda】计算baseline loss(critic loss) 时使用 td-lamda.adv 而非 vtrace.adv 似乎使训练更稳定了，收敛速度也变快了</li>
+                          <li>4. 【upgo】 收敛速度似乎变慢了 </li>
+                          <li>5. 【teacher kl】， 表现符合预期，不过模型容量是不是因为蒸馏提升了上限还有待观察 </li>
+                          <li>6. 【更改loss的系数】 因为我最后有四个 loss policy_pg entropy baseline_loss  upgo_policy改这四个loss的系数对结果影响挺大的，不过因为我只训练了2e7这四个loss的调参都<strong className='crimson'>没有</strong>对<strong className='crimson'>突破瓶颈</strong>有帮助</li>
+                          <li>7. 【multi input】 把游戏面板信息加入到训练中 
+                            <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647681103/impala/doom_window.jpg"/></p>
+                            <p>这个对前期<strong className='crimson'>突破瓶颈</strong>学得 "拾取医药箱“ ”拾取子弹“  影响<strong className='crimson'>极大</strong></p>
+                            <p>其实这也很符合直觉，毕竟如果让电脑学会看游戏面板，还能理解到游戏中交互和面板的关系，只依靠最后的reward确实是很难的</p>
+                          </li>
+                          <li>8. 【reward shaping】 虽然我给agent 最终的reward设定是 杀死一个敌人1分 拾取医疗包 0.5分 子弹 0.5 分 对结果影响如预期那么大，不过按照网上的说法，这个只在<span className='yellow'>训练早期</span>作用很大 </li>
+                        </ul>
+
+                        <p>实验设计（待测）：</p>
+                        <ul>
+                          <li>1. 【vec env 和 frame stack】： 标准操作</li>
+                          <li>2. 【seed rl 或 sample factory】</li>
+                          <li>3. 【self play】</li>
+                          <li>4. 【scale up】</li>
+                          <li>5. 【encoder换resnet】</li>
+                        </ul>
+                        <p></p>
+
+                        <h3>7. 遇到的问题：</h3>
+                        <p></p>
+                        <ul>
+                          <li>1. 【RL过拟合】： 如演示，agent很容易陷入到局部最优中，当然rl咯td学习的的贝尔曼方程就是只保证优化到局部最优的</li>
+                          <li>2. 【loss的意义】： 【TODO】</li>
+                          <li>3. 【瓶颈确认】： 到底是调参在起作用还是我的结构改动在起作用呢?</li>
+                          <li>4. 【启发式先验】启发式先验知识依然对突破瓶颈能起到类似residule connect一样关键的作用</li>
+                        </ul>
+                        <p></p>                        
+
+                        <h3>8. 结论：</h3>
+                        <p>【TODO】</p>
+
+                        <h3>9. 未解决问题：</h3>
+                        <p>【TODO】</p>
+
+                    </div>
+                    
+                    <KeywordsTags tagList={ _post.categories } />
+                    
+                </div>
+                
+              <div className="DisqusComp">      
+                <DisqusBox />
+              </div>
+            
+            </div>  
+        </div>
+
+        <Footer />
+
+    </div>
+}
+
+
+export default post

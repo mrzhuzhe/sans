@@ -3,6 +3,13 @@ export async function getStaticProps() {
     const data = {
         data: {
             allPosts: [{
+                    id: "impala",
+                    title: "Impala多线程强化学习总结（其一）",
+                    publishedDate: "2022-03-19",
+                    brief: "在visdoom环境中利用多线程算法impala加速强化学习，用有限的家用机器资源训练出实战级别的rl agent",
+                    categories: [{name: "reinforcement-learning" }]  
+                },
+                {
                     id: "tfjs-speech",
                     title: "online speech recognize",
                     publishedDate: "2022-3-3",
@@ -85,7 +92,7 @@ function list({ data }) {
             </div>  
         </div>
         <footer className="w3-container w3-padding-64 w3-light-grey w3-center w3-large">   
-        <p>2021 No right recived</p>
+        <p>2021 to future, No right recived</p>
         <p className="small">太陽系を抜け出して平行線で交わろう</p>
         </footer>
     </div>
