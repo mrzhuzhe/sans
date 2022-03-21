@@ -76,7 +76,9 @@ function post({ data }) {
                         </ul>
                         <p>输入 = 图像 + 游戏面板信息</p>
                         <ul>
-                          <li>1. 对拾取弹药和医药箱做0.5的奖励</li>
+                          <li>1. 对拾取弹药和医药箱做0.5的奖励 => 在之前策略基础上会拾取弹药和医药箱
+                            <p><iframe src="//player.bilibili.com/player.html?aid=254910440&bvid=BV1hY411n7Gi&cid=553433416&page=1&t=290" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="640" height="480"> </iframe></p>
+                          </li>
                         </ul>
                         <p></p>
 
@@ -183,7 +185,7 @@ function post({ data }) {
                         <h3>7. 遇到的问题：</h3>
                         <p></p>
                         <ul>
-                          <li>1. 【RL过拟合】： 如演示，agent很容易陷入到局部最优中，当然rl咯td学习的的贝尔曼方程就是只保证优化到局部最优的</li>
+                          <li>1. 【RL过拟合】： 如演示，agent很容易陷入到局部最优中，当然rl的td学习的的贝尔曼方程就是只保证优化到局部最优的</li>
                           <li>2. 【loss的意义】： 【TODO】</li>
                           <li>3. 【瓶颈确认】： 到底是调参在起作用还是我的结构改动在起作用呢?</li>
                           <li>4. 【启发式先验】启发式先验知识依然对突破瓶颈能起到类似residule connect一样关键的作用</li>
@@ -191,10 +193,26 @@ function post({ data }) {
                         <p></p>                        
 
                         <h3>8. 结论：</h3>
-                        <p>【TODO】</p>
-
+                        <p>1. 【RL kick start启动】： 因为前期往往存在很多“瓶颈行为”需要学习，所以rl训练往往存在前期收益十分平缓，但是解决某一关键“常识”的学习后收益立即陡增的情况：例如pingpong游戏中的“接球”这一行为</p>
+                        <p>要解决这个问题目前有几条思路</p>
+                        <ul>
+                          <li>(1) 环境简化： 例如 doom这个环境中agent如果要学习认识游戏面板上的数字，需要非常久的时间，所以直接把游戏面板信息作为结构化数据输入给agent就会节约大量的学习时间</li>
+                          <li>(2) reward shaping： 前期对一些关键行为进行特征工程的诱导，人为奖励一些行为，例如接近目标等作为辅助reward，会很大的帮助agent学习“瓶颈行为”</li>
+                          <li>(3) 模仿学习： 模仿学习或者行为克隆因为只学习目前行为和目标行为的交叉熵，所以非常的省计算资源，例如lux比赛中就有大量的人使用模仿学习 https://www.kaggle.com/c/lux-ai-2021/discussion/294098， 
+                              <br/>
+                            而且按照alphastar的说法，模仿学习可以让alphastar到大师等级
+                            </li>                    
+                          <li>(4) teacher force 如果已经有一次成功的训练，可以用这个模型来蒸馏后续的模型，蒸馏可以很快的让student模型到达teacher模型的精度 https://arxiv.org/pdf/1803.03835.pdf </li>                          
+                        </ul>
+  
                         <h3>9. 未解决问题：</h3>
-                        <p>【TODO】</p>
+                        <p></p>
+                        <ul>
+                          <li>(1) RL策略的广度，目前看下来似乎包括alphastar都只能探索kick start定下的“基调”附近的策略，如果出现没有见过的情况，几乎无法处理，其实策略搜索的广度是很有限的</li>
+                          <li>(2) 新的rl算法都试图提升探索的效率，或者降低噪声让收敛的上限上升，这个很难界定</li>
+                          <li>(3) 目前我对于loss对表现的影响意义还有待提升</li>                    
+                          <li>(4) 没有用到self play和对抗学习，这个下一期会做</li>                          
+                        </ul>
 
                     </div>
                     
