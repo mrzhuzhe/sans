@@ -124,9 +124,9 @@ function post({ data }) {
                         <p className='strong'>3个LOSS的意义：</p>
                         <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1647677690/impala/impala_loss.png"/></p>
                         <ul>
-                          <li> policy_pg_loss 鼓励收益大的选择概率大</li> 
+                          <li> policy_pg_loss 鼓励收益大的选择概率大， 需要critic估计的收益来作为基准来更新梯度</li> 
                           <li> entropy_loss 这个loss是一个负系数loss 所以优化方向为 尽可能的熵变大（更倾向于探索），但是随着训练熵本身会不变小（越来越保守），所以如果policy loss优化不下去了，熵就会变大，鼓励探索</li>
-                          <li> baseline_loss critic_loss 【TODO】</li>    
+                          <li> baseline_loss critic_loss, 估计的收益和实际收益的L2范数</li>    
                         </ul>
                         <p></p>
 
