@@ -78,7 +78,7 @@ function post({ data }) {
                         <p>输入 = 图像 + 游戏面板信息</p>
                         <ul>
                           <li>1. 对拾取弹药和医药箱做0.5的奖励 => 在之前策略基础上会拾取弹药和医药箱
-                            <p><iframe src="//player.bilibili.com/player.html?aid=254910440&bvid=BV1hY411n7Gi&cid=553433416&page=1&t=290" scrolling="no" border="0" frameBorder="no" framespacing="0" allowfullscreen="true" width="640" height="480"> </iframe></p>
+                            <p><iframe src="//player.bilibili.com/player.html?aid=254910440&bvid=BV1hY411n7Gi&cid=553433416&page=1&t=290" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
                           </li>
                         </ul>
                         <p></p>
@@ -228,10 +228,10 @@ function post({ data }) {
                         </ul>
 
                         <p>2. 最后贴一下的，doom duel 任务的演示视频</p>
-                        <p>只训练了 1e7 steo的情形，会冲向敌人但是，只会360度旋转开枪</p>
-
-                        <p>训练了 4.5e8 step 的情形</p>
-
+                        <p>只训练了 1e7 steo的情形，会冲向敌人但是，只会360度旋转开枪, 或是堵口</p>
+                        <p><iframe src="//player.bilibili.com/player.html?aid=297935081&bvid=BV1QF41137gm&cid=568155108&t=0" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
+                        <p>训练了 4.5e8 step 的情形, 已基本可以达到普通人水平</p>
+                        <p><iframe src="//player.bilibili.com/player.html?aid=297935081&bvid=BV1QF41137gm&cid=568155108&t=100" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
                         <h3>9. 未解决问题：</h3>
                         <p></p>
                         <ul>
