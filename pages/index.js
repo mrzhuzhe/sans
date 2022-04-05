@@ -24,7 +24,7 @@ function HomePage() {
             <div className="item" name="works" id="works" >      
               <h1>已写的文章：</h1>
               <ul>
-                <li>Impala多线程强化学习总结（其一）</li>
+                <li>Impala多线程强化学习总结</li>
                 <li>open3d实践的总结</li>              
               </ul>
 

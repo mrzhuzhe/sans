@@ -4,7 +4,7 @@ export async function getStaticProps() {
         data: {
             allPosts: [{
                     id: "impala",
-                    title: "Impala多线程强化学习总结（其一）",
+                    title: "Impala多线程强化学习总结",
                     publishedDate: "2022-03-19",
                     brief: "在visdoom环境中利用多线程算法impala加速强化学习，用有限的家用机器资源训练出实战级别的rl agent",
                     categories: [{name: "reinforcement-learning" }]  
