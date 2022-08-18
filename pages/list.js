@@ -2,7 +2,14 @@ export async function getStaticProps() {
     
     const data = {
         data: {
-            allPosts: [{
+            allPosts: [
+                {
+                    id: "Sim2real_foundation",
+                    title: "【Sim2real】01：ROS ， Moveit ， Gazebo 和凸包",
+                    publishedDate: "2022-08-18",
+                    brief: "用UR5机器人开发实际工业加工的项目，Sim2Real的基础项目搭建",
+                    categories: [{name: "Robotic" }]  
+                },{
                     id: "impala",
                     title: "Impala多线程强化学习总结",
                     publishedDate: "2022-03-19",

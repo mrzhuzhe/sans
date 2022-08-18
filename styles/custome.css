@@ -22,3 +22,8 @@ footer .small { font-size: 12px; color: #ccc; }
 .post .code, .post .code a { background-color:#000; color: #fff; padding: 10px 20px; line-height: 2; border-radius: 5px; }
 .strong { font-weight: bold; }
 .crimson { color: #f00; }
+.fl {float:left}
+.fr {float:right}
+.cl {clear:both;}
+.dis_none {display: none;}
+.inline_block {display: inline-block;}
