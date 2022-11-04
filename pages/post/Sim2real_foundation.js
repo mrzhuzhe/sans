@@ -76,10 +76,10 @@ function post({ data }) {
                        
                         <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/c_scale,w_360/v1660819151/gazebo/photo_2022-08-18_18-38-21.jpg"/>                                               
                         <p>UR5 演示：</p>
-                        <p>TODO 此处添加视频演示</p>
+                        <p><iframe src="//player.bilibili.com/player.html?aid=644717077&bvid=BV1KY4y1F73s&cid=807663209&page=1&t=521" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
 
                         <p>Gazebo 演示：</p>
-                        <p>TODO 此处添加视频演示</p>
+                        <p><iframe src="//player.bilibili.com/player.html?aid=644717077&bvid=BV1KY4y1F73s&cid=807663209&page=1&t=380" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
                         
                         <p></p> 
 
@@ -151,14 +151,40 @@ function post({ data }) {
                         <p>实验设计：</p>
                         <p>实验一：实体机器人运行沿着模具法相量等高线运行一圈并复位, 要求跟gazebo中模拟尽可能一致，机器人执行器上要有一个摄像头</p>
                         <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/c_scale,w_720/v1660819151/gazebo/photo_2022-08-18_18-38-21_2.jpg" /> </p>                      
-                        <p>实验一视频：TODO</p>                        
+                        <p>实验一视频：</p>
+                        <p>                    
+                        <iframe src="//player.bilibili.com/player.html?aid=644717077&bvid=BV1KY4y1F73s&cid=807663209&page=1&t=521" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe>
+                        </p>                        
                         <p>实验一结论：基本符合预期，摄像头gazebo中模拟摄像头和实际摄像头看到的画面基本一致</p>
                         <p></p>                                      
                         
                         <h3>6. 结论：</h3>
-                        <p>未解问题TODO</p>
-                        <p>思考TODO</p>
-                        <p>下一步计划TODO</p>           
+                        <p><b>未解决问题:</b></p>
+                        <ul>
+                          <li>1. 经过过调研，接触操作都需要用到力控，需要调研力控的用法和实现。</li>
+                          <li>2. 需要一些辅助测量的结构： 例如，需要自定义ros节点做一个激光测量的定位</li>
+                          <li>3. 需要一些继电器控制的辅助设备，例: 使用ur io 的八个输出来控制气动阀</li>
+                          <li>4. 需要几何算法做表面提取：其实经过测试3d上不能直接用凸包法</li>
+                          <li>5. 需要把相机改成自定义驱动的相机</li>
+                          <li>6. 需要一个自定义的模具夹持结构</li>
+                        </ul>
+                        <p><b>思考:</b></p>
+                        <p>
+                          其实最主要的问题就是问题1
+                          <br /> 实际上接触操作都会因为机器人本身的误差和接触摩擦反冲造成很大的误差
+                          需要 “Impediance control” <a href="https://en.wikipedia.org/wiki/Impedance_control#:~:text=Impedance%20control%20is%20an%20approach,position%20relation%20is%20of%20concern."  target="_blank">Wiki pedia</a>
+                          来主动“阻抗”外部环境摩擦和反冲的干扰
+                          <br />这个需要自定义ros_controler 和 KDL                         
+                        </p>
+                        <p> 其他问题： 如问题4 涉及大规模几何计算，会另外单独拆分出来作为“HPC”专项单独跟进</p>
+                        <p><b>下一步计划:</b></p> 
+                        <p>围绕问题1跟进，做一套ros中gazebo的力控阻抗控制模拟</p>
+                        <ul>
+                          <li>1. 阅读ros control 源码 包含： ros 硬件接口 机器人transmision joint_limit 等的定义 <a href="http://wiki.ros.org/ros_control"  target="_blank">ros_control</a></li>
+                          <li>2. 阅读ros contoller 源码， 在ros_contoler 的实现之上增加了前向控制，轨迹控制等的实现</li>  
+                          <li>3. 阅读 Universal_Robots_ROS_Driver 源码， 这个其实没有阻抗控制的实现，需要自己加进去，网上有网友已经实现了 <a href="https://github.com/MingshanHe/Compliant-Control-and-Application"  target="_blank">网友实现</a></li>
+                          <li>4. 阅读 panda 机器人的控制器源码 <a href="https://frankaemika.github.io/docs/franka_ros.html#franka-example-controllers"  target="_blank">frankaemike controler example</a>这个里边有阻抗控制的实现</li>
+                        </ul>          
 
                     </div>
                     

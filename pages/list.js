@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "positionbasedfluid",
+                    title: "【HPC】01 Position base fluid & 程序员角度所理解的流体力学",
+                    publishedDate: "0-11-04",
+                    brief: "Position base fluid & 程序员角度所理解的流体力学",
+                    categories: [{name: "HPC" }, {name: "CFD" }]  
+                },
+                {
                     id: "Sim2real_foundation",
                     title: "【Sim2real】01：ROS ， Moveit ， Gazebo 和凸包",
                     publishedDate: "2022-08-18",
