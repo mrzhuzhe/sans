@@ -1,0 +1,29 @@
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+a { text-decoration: none; }
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+
+.index-main .list { padding-bottom: 80px;}
+.index-main .list .item { padding: 15px; margin-bottom:10px; border-bottom: 1px dashed #e1e1e1; }
+footer .small { font-size: 12px; color: #ccc; }
+.index-img img { display: block; margin: 0 auto 128px; }
+.postlist, .postdetail {margin-bottom: 128px;}
+.postlist .item { padding: 15px 0 25px; border-bottom: 1px dashed #e1e1e1;}
+.post .date { font-size: 14px; color:#999; }
+.post .extended { padding: 10px 0 20px; word-break: break-all; }
+.post .tags span { padding: 4px 8px; background: #e1e1e1; margin-right: 10px; border-radius: 5px; } 
+.DisqusComp { padding: 0 0 128px;}
+.post .extended img { max-width: 80%; }
+.post .title { font-size: 32px; margin-bottom: 30px; }
+.post .extended h3 { margin: 25px 0; font-size: 24px; border-bottom: 1px dotted #ccc;}
+.post .extended code, .post .extended .red { color: burlywood; }
+.yellow {color: rgba(255, 217, 0, 0.774);}
+.green {color: rgb(0, 128, 0)} 
+.post .code, .post .code a { background-color:#000; color: #fff; padding: 10px 20px; line-height: 2; border-radius: 5px; }
+.strong { font-weight: bold; }
+.crimson { color: #f00; }
+.fl {float:left}
+.fr {float:right}
+.cl {clear:both;}
+.dis_none {display: none;}
+.inline_block {display: inline-block;}
