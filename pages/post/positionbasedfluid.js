@@ -10,7 +10,7 @@ export async function getStaticProps() {
         Post: {
             id: "positionbasedfluid",
             title: "【HPC】01 Position base fluid & 程序员角度所理解的流体力学",
-            publishedDate: "0-11-04",
+            publishedDate: "2022-11-04",
             brief: "Position based fluid & 程序员角度所理解的流体力学",
             categories: [{name: "HPC" }, {name: "CFD" }]  
         }
