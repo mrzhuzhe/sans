@@ -77,7 +77,7 @@ function list({ data }) {
         <div className="w3-content" style={{ maxWidth:1500 + "px" }}>
             <header className="w3-panel w3-center w3-opacity" style={{ padding: "128px 16px" }}>
             <h1 className="w3-xlarge">Starofus</h1>
-            <h1>你好呀，我是zhuzhe</h1>    
+            <h1>你好呀，我是Sans</h1>    
             <div className="w3-padding-32">
                 <div className="w3-bar w3-border">
                 <a href="/index" className="w3-bar-item w3-button">Home</a>
