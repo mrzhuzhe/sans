@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "ros_controller",
+                    title: "【Sim2real】02 自定义ROS_controller实现反馈控制",
+                    publishedDate: "2022-12-23",
+                    brief: "自定义ROS_controller实现反馈控制",
+                    categories: [{ name: "ros" }, { name: "robotic" }]  
+                },
+                {
                     id: "positionbasedfluid",
                     title: "【HPC】01 Position base fluid & 程序员角度所理解的流体力学",
                     publishedDate: "2022-11-04",
