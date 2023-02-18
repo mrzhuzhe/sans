@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "euler",
+                    title: "【HPC 02】欧拉视角的流体模拟",
+                    publishedDate: "2023-2-18",
+                    brief: "欧拉视角下的纯网格烟雾模拟，pic网格和粒子混合法，mpm混合粒子有限元法",
+                    categories: [{name: "CFD" }] 
+                },
+                {
                     id: "ros_controller",
                     title: "【Sim2real】02 自定义ROS_controller实现反馈控制",
                     publishedDate: "2022-12-23",

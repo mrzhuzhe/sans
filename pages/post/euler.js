@@ -8,11 +8,11 @@ export async function getStaticProps() {
   const data = {
       data: {
         Post: {
-                  id: "elur",
+                  id: "euler",
                   title: "【HPC 02】欧拉视角的流体模拟",
                   publishedDate: "2023-2-18",
                   brief: "欧拉视角下的纯网格烟雾模拟，pic网格和粒子混合法，mpm混合粒子有限元法",
-                  categories: [{name: "cv" }]  
+                  categories: [{name: "CFD" }] 
               }
       }        
   }
@@ -56,6 +56,7 @@ function post({ data }) {
                       </ul>
 
                       <h3>2. 演示</h3>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1676716205/euler/04.jpg" width="480" ></img></p>
                       <p>TODO此处添加视频</p>
                       <p>1. SPH固流耦合 <a href='https://github.com/mrzhuzhe/Reisen/blob/main/sph/main.py' target="blank">https://github.com/mrzhuzhe/Reisen/blob/main/sph/main.py</a></p>
                       <p>2. 纯欧拉法烟雾<a href='https://github.com/mrzhuzhe/Reisen/blob/main/euler/test.py' target="blank">https://github.com/mrzhuzhe/Reisen/blob/main/euler/test.py</a></p> 
@@ -64,10 +65,14 @@ function post({ data }) {
                       <p>5. mpm <a href='https://github.com/mrzhuzhe/Reisen/blob/main/mpm/2_compare.py' target="blank">https://github.com/mrzhuzhe/Reisen/blob/main/mpm/2_compare.py</a></p>
 
                       <h3>3. 相关工作</h3>
-                      <p></p>
-                      <p></p>
-                      <p></p> 
-                      <p></p>
+                      <p>代码大量借鉴了</p>
+                      <ul>
+                        <li>1. sph_taichi <a href='https://github.com/erizmr/SPH_Taichi'>https://github.com/erizmr/SPH_Taichi</a></li>
+                        <li>2. sandy_fluid<a href='https://github.com/ethz-pbs21/SandyFluid'>https://github.com/ethz-pbs21/SandyFluid</a></li>
+                        <li>3. taichi_mpm<a href='https://github.com/yuanming-hu/taichi_mpm'>https://github.com/yuanming-hu/taichi_mpm</a></li>
+                        <li>4. power-pic<a href='https://github.com/g1n0st/power-pic'>https://github.com/g1n0st/power-pic</a></li>
+                        <li>5. pyasflip <a href='https://github.com/nepluno/pyasflip'>https://github.com/nepluno/pyasflip</a></li>
+                      </ul>
 
                       <h3>4. 实验</h3>
                       <p>遇到的问题</p>                      
@@ -76,21 +81,29 @@ function post({ data }) {
                           <li>1. 大步长引起的能量耗散</li>
                           <li>2. 隐式求解微分方程引起的能量耗散</li>
                           <li>3. 为什么计算网格节点差值要减去0.5<a href='https://forum.taichi-lang.cn/t/topic/1584/18' target="blank">https://forum.taichi-lang.cn/t/topic/1584/18</a></li>
+                          <li>4. 数值稳定性</li>
                         </ul>
                       </p> 
                       <p></p>
 
                       <h3>5. 原理</h3>
-                      <p></p>
-                      <p></p>
-                      <p></p> 
+                      <p>流程</p>
+                      <ul>
+                        <li>1. p2g particle to grid </li>
+                        <li>2. project solve pressure divergen </li>
+                        <li>3. g2p grid to particle </li>
+                        <li>4. advect </li>  
+                      </ul>                      
                       <p></p>
 
                       <h3>6. 讨论</h3>
-                      <p></p>
-                      <p></p>
-                      <p></p> 
-                      <p></p>
+                      <ul>
+                        <li>1. projection 的隐式求解 </li>
+                        <li>2. 隐式时间积分</li>
+                        <li>3. 数值稳定性</li>
+                        <li>4. mpm应力的求解 </li>
+                        <li>5. 极分解</li>                       
+                      </ul>      
 
                     </div>
                     
