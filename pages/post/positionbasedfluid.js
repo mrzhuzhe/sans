@@ -109,7 +109,8 @@ function post({ data }) {
 
                       <p>第一步：选择和建立整体模型</p>
                       <p>这里只针对PBF 的 SPH 例子讲： </p>
-                      <p>TODO 流程演示视频</p>
+                      <p><iframe src="//player.bilibili.com/player.html?aid=304771797&bvid=BV1SP411w7xn&cid=882274893&page=1&t=370" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
+                        
                       <p>这里我逐步放开每个步骤的注释，让大家看以下每个步骤对结果的影响</p>
                       <ul>
                         <li>1. 计算外力(tougong函数)得到速度， 保存当前位置 </li>

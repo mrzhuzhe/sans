@@ -46,7 +46,7 @@ function post({ data }) {
                         <p>也就是说： moveit 无法自定义轨迹之间两点的行为</p> 
                         <p>因此：</p>
                         <ul>
-                          <li>1. 首先轨迹点应该是一个 catesian space 的描述 而非 joint space 描述（[TODO]此处有歧义）<br></br> <strong>注</strong>： 机器人关节电机的位置 -&gt; joint space -&gt; cartesian space 位置
+                          <li>1. 首先轨迹点应该是一个 catesian space（三维坐标系四元数姿态-用于几何变幻） 的描述 而非 joint space 描述（关节旋转位置描述-用于机器人）<br></br> <strong>注</strong>： 机器人关节电机的位置 -&gt; joint space -&gt; cartesian space 位置
                           <br></br><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1671853123/ros_control/01.jpg" width="360" /></li>
                           <li>2. 根据机器人学导论《introduction to robotics》 - craig 轨迹点之间的运动应该是用forward/inverse kinematic dynamic 来求解，是非常核心的部分</li>   
                           <li>3. 如果要自定义机器人实时的行为就得自定义ros_control，需要调用ros control loop 的钩子 start/update/shutup 等</li>
@@ -57,7 +57,7 @@ function post({ data }) {
                         <p></p>
 
                         <h3>2. 演示</h3>
-                        <p>[TODO] 此处添加视频：</p>
+                        <p><iframe src="//player.bilibili.com/player.html?aid=264176165&bvid=BV1Ze411c7Zd&cid=935381461&page=1&t=280" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true} width="640" height="480"> </iframe></p>
                         <ul>
                           <li>1. 注册ros control</li>
                           <li>2. 位置控制 Joint to cartesian 和 cartesian to joint</li>
