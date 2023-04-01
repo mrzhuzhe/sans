@@ -12,7 +12,7 @@ export async function getStaticProps() {
                   title: "",
                   publishedDate: "",
                   brief: "",
-                  categories: [{name: "cv" }]  
+                  categories: [{name: "TODO" }]  
               }
       }        
   }
@@ -36,7 +36,37 @@ function post({ data }) {
                     <div className="date">{_post.publishedDate}</div>
                     <p className="bref">{_post.brief}</p>
                     <div className="extended">
-                        
+                    <h3 className="code">代码：<a href='###' target="_blank">###</a></h3>
+                      <h3>1. 概述</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
+
+                      <h3>2. 相关工作</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
+
+                      <h3>3. 实验设计</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
+
+                      <h3>4. 实验结果</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
+
+
+                      <h3>5. 总结和展望</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
+
+                      <h3>6. 参考资料</h3>
+                      <ul>
+                        <li></li>
+                      </ul>
                     </div>
                     
                     <KeywordsTags tagList={ _post.categories } />
