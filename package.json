@@ -9,14 +9,14 @@
     "export": "next export"
   },
   "dependencies": {
-    "next": "13.0.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "trim": ">=0.0.3",
     "bson": ">=1.1.4",
+    "glob-parent": ">=5.1.2",
     "lodash": ">=4.17.21",
-    "underscore": ">=1.12.1",
+    "next": "^13.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "trim": ">=0.0.3",
     "ua-parser-js": ">=0.7.24",
-    "glob-parent": ">=5.1.2"
+    "underscore": ">=1.12.1"
   }
 }

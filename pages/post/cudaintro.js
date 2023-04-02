@@ -38,7 +38,8 @@ function post({ data }) {
                     <div className="extended">
                       <h3 className="code">代码：<a href='https://github.com/mrzhuzhe/riven' target="_blank">https://github.com/mrzhuzhe/riven</a></h3>
                       <h3>1. 概述</h3>
-                      <p>由于之前深度学习，物理仿真，渲染等都需要用到高性能计算，cpu/gpu下并行编程，所以最近做了一些cuda相关的练习</p>
+                      <p>由于之前深度学习，物理仿真，渲染等都需要用到高性能计算，cpu/gpu下并行编程，所以最近做了一些cuda相关的练习</p>                      
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680447679/cuda/02.png" alt="整体架构"  /></p>                      
                       <p><strong className='red'>为什要有并行计算?：</strong></p>
                       <ul>
                         <li>理论上可以不断进行算法层面的优化，减少算法复杂度来提升程序性能(实际上不行)</li>
@@ -67,37 +68,82 @@ function post({ data }) {
                       <p><strong className='red'>还有其他办法吗</strong></p>
                       <p>在编译器层面</p>
                       <ul>
-                        <li>计算图表示的层面优化：算子融合 替换</li>
-                        <li>多面体优化</li>
+                        <li>计算图表示的层面优化：TVM代表的<a href="https://github.com/mlc-ai/notebooks">算子融合 替换</a></li>
+                        <li>多面体优化 <a href='https://www.zhihu.com/question/338039895/answer/839949892' target='blank'>深度学习编译器有哪些有价值的研究方向和参考文献？</a> <a href='https://polyhedral.info/' target='blank'>https://polyhedral.info/</a></li>
                       </ul>
                       
                       <p><strong className='red'>目前：</strong></p>
                       <p>我做了什么?：</p>
                       <ul>
                         <li>cuda的练习</li>
-                        <li>neon指令集的练习</li>
+                        <li>neon指令集的练习</li>                        
                       </ul>
                      
                       <h3>2. 相关工作</h3>
+                      <p>最开始想弄cuda和编译器是由于看了taichi的分享，taichi用python前端，可以选择生成cpu还是gpu平台的代码，通过vulkan实现了跨平台metal和cuda</p>
+                      <p>并且在稀疏数据结构上做了一些功夫，让代码执行效率几乎不输原生cuda</p>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680447679/cuda/04.png" alt="编译器抽象" /></p>
+                      <p>这样做的好处是代码不用写c++可以更<span className='yellow'>专注于更上层的抽象</span>，默认<span className='yellow'>跨平台</span>还有<span className='yellow'>非常不错</span>的性能</p>
                       <ul>
-                        <li></li>
+                        <li>1. <a href='https://www.bilibili.com/video/BV1pa411S7b6/?spm_id_from=333.999.0.0&vd_source=357616f412db6079b853b68278dc03db' target='blank'>入门必备｜想要吃透 Taichi 代码库？快速区分 field 和 kernel，速览 Taichi 底层架构</a></li>
+                        <li>2. <a href='https://www.bilibili.com/video/BV1RG411n7PY/?spm_id_from=333.999.0.0&vd_source=357616f412db6079b853b68278dc03db' target='blank'>原理解析 | Taichi 代码从编译到执行，都要经历哪些过程？</a></li>
+                      </ul>                      
+                      
+                      <p>但是<span className='yellow'>坏处</span>或者说<span className='yellow'>取舍</span>也十分明显</p>
+                      <p>为什么？</p>
+                      <ul>
+                        <li>1. 虽然给python加了语法糖，支持并行化，但是还是取消了指针和细粒度的线程控制</li>
+                        <li>2. 虽然用field实现了极高性能的内存结构，稀疏数据结构，但是还是取消了细粒度的内存控制</li>
+                        <li>3. 跨平台非常好用，但是对平台的支持完全依赖于taichi内部实现，不保证能完全利用该平台的新特性</li>
+                      </ul>
+                      <p>所以类似的工作如<a href='https://github.com/LuisaGroup/LuisaRender' target='blank'>LuisaRender/Compute</a>都是走了这个路线，只是“取舍的程度不同”</p>
+                      <br></br>
+                      
+                      <p>这次我们从cuda的角度来看：</p>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680447679/cuda/03.png" alt="代码module" /></p>
+                      <p></p>
+
+                      <p><strong>Cuda提供了哪些功能呢？</strong></p>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680447679/cuda/05.png" all="cuda模型" /></p>
+                      <ul>
+                        <li>1. cublas cudnn等计算库，高效实现的矩阵计算，张量存储等常见算子和功能的封装</li>
+                        <li>2. nsight compute 等新能检测工具</li>
+                        <li>3. 迭代了无数版本的cuda硬件，和用户社区中的无数资料</li>
+                        <li>3. cuda 编程模型，让我们给予他能开发各种应用 <a href='https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-model' target='blank'>cuda programming guide</a> </li>
                       </ul>
 
                       <h3>3. 实验设计</h3>
-                      <ul>
-                        <li></li>
+                      <p>此处演示，代码都在riven下</p>
+                      <ul>                        
+                        <li>1. openmp <pre className='code'>/openmp</pre></li>
+                        <li>2. neon 指令集<pre className='code'>/neon</pre></li>
+                        <li>3. Cuda 编程模型： 归并/扫描 <pre className='code'>/cuda_test/pipline</pre> </li>
+                        <li>4. Cuda 只读内存（在流体模拟里）</li>
+                        <li>5. Cuda 常见库：实现一个cuda神经网络 <pre className='code'>/cuda_test/nn</pre></li>
+                        <li>6. Cuda 实现拉格朗日流体模拟 <pre className='code'>/cuda_fluid</pre></li>
+                        <li>7. 混合精度</li>
+                        <li>8. TVM 入门练习<a href='https://github.com/mlc-ai/notebooks' target='blank' >TVM Relay Relax</a></li>
+                        <li>9. 用nsight compute来performance gdb debugger</li>
                       </ul>
 
                       <h3>4. 实验结果</h3>
                       <ul>
                         <li>内存往往昂贵于计算</li>
                         <li>L1 L2 缓存和prefecth机制影响很大（内存局部性）</li>
+                        <li>低精度量化对减少内存开销影响很大</li>
+                        <li>向量化指令集速度很快，但是各个平台不兼容难以统一处理</li>
+                        <li>最优化循环的gridsize blocksize，协程组，warp diverge bank conflict其实对结果的影响没那么大</li>
                       </ul>
-
-
+                      <p>一些bug</p>
+                      <ul>
+                        <li>M1下CMake下和直接clang++编译neon指令集表现不同</li>
+                      </ul>
                       <h3>5. 总结和展望</h3>
                       <ul>
-                        <li></li>
+                        <li>针对各个平台的实现目前还在蛮荒时代，需要做一些自动优化的工具</li>
+                        <li>后面参考和学习fastertransformer oneflow tensorrt 之类的实现</li>
+                        <li>openmpi megatron deepspeed等？</li>
+                        <li>SOC RISC-V 微架构等？</li>
                       </ul>
 
                       <h3>6. 参考资料</h3>
