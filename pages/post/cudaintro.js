@@ -117,7 +117,71 @@ function post({ data }) {
                       <ul>                        
                         <li>1. openmp <pre className='code'>/openmp</pre></li>
                         <li>2. neon 指令集<pre className='code'>/neon</pre></li>
-                        <li>3. Cuda 编程模型： 归并/扫描 <pre className='code'>/cuda_test/pipline</pre> </li>
+                        <li>3. Cuda 编程模型： 归并/扫描 
+
+                          <pre className='code'>/cuda_test/warp
+                            ./build/reduction
+                            <br/>
+                            Time= 4.202200 msec, bandwidth= 15.969936 GB/s
+                            <br/>
+                            host 16777216.000000, device 16981248.000000
+                            <br/>
+                            <br/>
+                            ./build/reduction_shared 
+                            <br/>
+                            Time= 0.524270 msec, bandwidth= 128.004395 GB/s
+                            <br/>
+                            host 16777216.000000, device 16777216.000000 
+                            <br/>
+                            <br/>
+                            ./build/wp  // block 跨步循环 + warp 原语 和 balance balance_opt 差不多
+                            <br/>
+                            Time= 0.262390 msec, bandwidth= 255.759979 GB/s
+                            <br/>
+                            host 16777216.000000, device 16777216.000000
+                            <br/>
+                            <br/>
+                            是否有diverge
+                            <br/>
+                            <br/>
+                            大部分为不执行（diverge）代码和shared相同
+                            <br/>
+                                Time= 0.514730 msec, bandwidth= 130.376831 GB/s
+                            <br/>
+                                host 16777216.000000, device 16777216.000000
+                            <br/>
+                            大部分为执行
+                            <br/>
+                                Time= 0.419230 msec, bandwidth= 160.076477 GB/s
+                            <br/>
+                                host 16777216.000000, device 16777216.000000
+                            <br/>
+                            <br/>
+                            ./build/cg  //  协程组 默认 block level 似乎影响不大
+                            <br/>
+                            Time= 0.245920 msec, bandwidth= 272.889008 GB/s
+                            <br/>
+                            host 16777216.000000, device 16777216.000000
+                            <br/>
+                            <br/>
+                            pipline 下还有一个grid level cg
+                            <br/>
+                            Time= 0.092800 msec, bandwidth= 723.155884 GB/s
+                            <br/>
+                            host 16777216.000000, device 16777216.000000
+                            <br/>
+                            <br/>
+                            ./build/atomic_blk  // 用 block level cg 在一个block内归并 再把block结果atomic add到全局 ， 默认atomic速度非常慢比native实现还慢五六倍
+                            <br/>
+                            Time= 0.248800 msec, bandwidth= 269.730164 GB/s
+                            <br/>
+                            host 16777216.000000, device 16777216.000000
+                            <br/>
+                            <br/>
+
+                          </pre>  
+                          <pre className='code'>/cuda_test/pipline</pre> 
+                        </li>
                         <li>4. Cuda 只读内存（在流体模拟里）</li>
                         <li>5. Cuda 常见库：实现一个cuda神经网络 <pre className='code'>/cuda_test/nn</pre></li>
                         <li>6. Cuda 实现拉格朗日流体模拟 <pre className='code'>/cuda_fluid</pre></li>
@@ -133,16 +197,23 @@ function post({ data }) {
                         <li>低精度量化对减少内存开销影响很大</li>
                         <li>向量化指令集速度很快，但是各个平台不兼容难以统一处理</li>
                         <li>最优化循环的gridsize blocksize，协程组，warp diverge bank conflict其实对结果的影响没那么大</li>
+                        <li>cuda sample 中的helper 封装了 cuda error code 转文字 和 timing记时的函数</li>
+                        <li>cuda 有些比较偏门的功能和概念 比如 unified memory 和 cluster 也不知兼容性和实际性能如何</li>
                       </ul>
                       <p>一些bug</p>
                       <ul>
                         <li>M1下CMake下和直接clang++编译neon指令集表现不同</li>
+                        <li>Learn cuda programming 中 gemm 矩阵乘法的实现是有问题的 需要重新实现 比如参考 <a href='https://github.com/NVIDIA/cutlass' target='blanl'>cutlass</a> <a href='https://bluewaters.ncsa.illinois.edu/liferay-content/image-gallery/content/BLA-final' target="blank">其他资料</a></li>
                       </ul>
                       <h3>5. 总结和展望</h3>
                       <ul>
-                        <li>针对各个平台的实现目前还在蛮荒时代，需要做一些自动优化的工具</li>
+                        <li>后面会自己实现gemm对比效率</li>
+                        <li>熟悉cuda的半精度和warp源，加深对cuda编程模型的理解</li>
+                        <li>解决Nsight compute 不能跑的一些bug，测试和熟悉trace profile的详细功能</li>
+                        <li>会加紧练习光线追踪和物理渲染的其他应用</li>                        
+                        <li>会加紧<a href="<a href='https://github.com/chenzomi12/DeepLearningSystem" target="blank">了解编译器相关知识</a>，针对各个平台的实现目前还在蛮荒时代，需要做一些自动优化的工具</li>
                         <li>后面参考和学习fastertransformer oneflow tensorrt 之类的实现</li>
-                        <li>openmpi megatron deepspeed等？</li>
+                        <li>openmpi nccl RDMA megatron deepspeed等？</li>
                         <li>SOC RISC-V 微架构等？</li>
                       </ul>
 
