@@ -9,9 +9,9 @@ export async function getStaticProps() {
       data: {
         Post: {
                   id: "cudaintro",
-                  title: "【HPC 04】Cuda openmp SIMD指令 TVM 和 高性能计算",
+                  title: "【HPC 04】用Cuda实现和调试一些常见算法",
                   publishedDate: "2023-4-1",
-                  brief: "高性能计算的整体蓝图",
+                  brief: "高性能计算的整体蓝图，Cuda openmp SIMD指令 TVM 和 高性能计算",
                   categories: [{name: "高性能计算" }]  
               }
       }        
@@ -164,7 +164,7 @@ function post({ data }) {
                             host 16777216.000000, device 16777216.000000
                             <br/>
                             <br/>
-                            pipline 下还有一个grid level cg
+                            pipline 下还有一个grid level cg 用了 cudaLaunchCooperativeKernel 待研究
                             <br/>
                             Time= 0.092800 msec, bandwidth= 723.155884 GB/s
                             <br/>
@@ -180,13 +180,25 @@ function post({ data }) {
                             <br/>
 
                           </pre>  
-                          <pre className='code'>/cuda_test/pipline</pre> 
+                          <pre className='code'>
+                            /cuda_test/pipline
+                            <br />
+                            手动设置stream 优先级等，似乎效果不明显
+                            <br />
+                            MPI 部分目前还没有做
+                            <br />
+                            还有一些常见操作比如 
+                            <br />
+                            卷积 / 扫描 / 快排等
+                            <br />
+                            多体问题 - 向量化
+                          </pre> 
                         </li>
                         <li>4. Cuda 只读内存（在流体模拟里）</li>
-                        <li>5. Cuda 常见库：实现一个cuda神经网络 <pre className='code'>/cuda_test/nn</pre></li>
-                        <li>6. Cuda 实现拉格朗日流体模拟 <pre className='code'>/cuda_fluid</pre></li>
-                        <li>7. 混合精度</li>
-                        <li>8. TVM 入门练习<a href='https://github.com/mlc-ai/notebooks' target='blank' >TVM Relay Relax</a></li>
+                        <li>5. Cuda 常见库：实现一个cuda神经网络【TODO】 <pre className='code'>/cuda_test/nn</pre></li>
+                        <li>6. Cuda 实现拉格朗日流体模拟【TODO】 <pre className='code'>/cuda_fluid</pre></li>
+                        <li>7. 混合精度【TODO】</li>
+                        <li>8. TVM 入门练习【TODO】<a href='https://github.com/mlc-ai/notebooks' target='blank' >TVM Relay Relax</a>  额外资料：<a href='https://github.com/openmlsys/openmlsys-zh' target='blank'>机器学习系统</a></li>
                         <li>9. 用nsight compute来performance gdb debugger</li>
                       </ul>
 

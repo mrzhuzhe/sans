@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "cudaintro",
+                    title: "【HPC 04】用Cuda实现和调试一些常见算法",
+                    publishedDate: "2023-4-1",
+                    brief: "高性能计算的整体蓝图，Cuda openmp SIMD指令 TVM 和 高性能计算",
+                    categories: [{name: "高性能计算" }]  
+                },
+                {
                     id: "euler",
                     title: "【HPC 02】欧拉视角的流体模拟",
                     publishedDate: "2023-2-18",
