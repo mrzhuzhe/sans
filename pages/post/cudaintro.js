@@ -109,7 +109,10 @@ function post({ data }) {
                         <li>1. cublas cudnn等计算库，高效实现的矩阵计算，张量存储等常见算子和功能的封装</li>
                         <li>2. nsight compute 等新能检测工具</li>
                         <li>3. 迭代了无数版本的cuda硬件，和用户社区中的无数资料</li>
-                        <li>3. cuda 编程模型，让我们给予他能开发各种应用 <a href='https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-model' target='blank'>cuda programming guide</a> </li>
+                        <li>3. cuda 编程模型，让我们给予他能开发各种应用 <a href='https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-model' target='blank'>cuda programming guide</a>
+                        <br></br>
+                        <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680619152/cuda/cuda.drawio.png" alt="cuda 功能分级"  />
+                        </li>
                       </ul>
 
                       <h3>3. 实验设计</h3>
@@ -204,7 +207,11 @@ function post({ data }) {
 
                       <h3>4. 实验结果</h3>
                       <ul>
-                        <li>内存往往昂贵于计算</li>
+                        <li>内存往往昂贵于计算
+                          <br></br>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1680619152/cuda/memory-hierarchy.png" alt="cuda 内存层级" width="640"  />
+                          
+                        </li>
                         <li>L1 L2 缓存和prefecth机制影响很大（内存局部性）</li>
                         <li>低精度量化对减少内存开销影响很大</li>
                         <li>向量化指令集速度很快，但是各个平台不兼容难以统一处理</li>
