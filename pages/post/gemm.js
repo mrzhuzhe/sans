@@ -87,8 +87,82 @@ function post({ data }) {
                           <br />
                           另外注意pack其实只需pack一次，如果每次都pack反而会引起性能下降                     
                         </li>
+                        <li>                          
+                          5.  到这一步就已经抵达了 Blislab的 Step3 不同的是 BLISLab 提供了除了默认的AVX SIMD指令版本 还提供了汇编的版本的MICRO KERNEL 内层循环
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1684080758/gemm/01.jpg" alt="这个版本的整体架构图"></img>
+                          <br></br>似乎blislab的手写asm 比 avx 性能低 
+                          <br></br>而 8x6 6x8 12*4 在 x86 上有问题
+                          <div className='code'>
+                          Architecture:                    x86_64<br></br>
+                          CPU op-mode(s):                  32-bit, 64-bit<br></br>
+                          Byte Order:                      Little Endian<br></br>
+                          Address sizes:                   39 bits physical, 48 bits virtual<br></br>
+                          CPU(s):                          16<br></br>
+                          On-line CPU(s) list:             0-15<br></br>
+                          Thread(s) per core:              2<br></br>
+                          Core(s) per socket:              8<br></br>
+                          Socket(s):                       1<br></br>
+                          NUMA node(s):                    1<br></br>
+                          Vendor ID:                       GenuineIntel<br></br>
+                          CPU family:                      6<br></br>
+                          Model:                           167<br></br>
+                          Model name:                      11th Gen Intel(R) Core(TM) i9-11900 @ 2.50GHz<br></br>                                                          
+                          Stepping:                        1<br></br>
+                          CPU MHz:                         2500.000<br></br>
+                          CPU max MHz:                     5200.0000<br></br>
+                          CPU min MHz:                     800.0000<br></br>
+                          BogoMIPS:                        4992.00<br></br>
+                          Virtualization:                  VT-x<br></br>
+                          L1d cache:                       384 KiB<br></br>
+                          L1i cache:                       256 KiB<br></br>
+                          L2 cache:                        4 MiB<br></br>
+                          L3 cache:                        16 MiB<br></br>
+                          NUMA node0 CPU(s):               0-15<br></br>
+                          Vulnerability Itlb multihit:     Not affected<br></br>
+                          Vulnerability L1tf:              Not affected<br></br>
+                          Vulnerability Mds:               Not affected<br></br>
+                          Vulnerability Meltdown:          Not affected<br></br>
+                          Vulnerability Mmio stale data:   Mitigation; Clear CPU buffers; SMT vulnerable<br></br>
+                          Vulnerability Retbleed:          Mitigation; Enhanced IBRS<br></br>
+                          Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabl
+                                                          ed via prctl and seccomp<br></br>
+                          Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __
+                                                          user pointer sanitization<br></br>
+                          Vulnerability Spectre v2:        Mitigation; Enhanced IBRS, IBPB conditional
+                                                          , RSB filling, PBRSB-eIBRS SW sequence<br></br>
+                          Vulnerability Srbds:             Not affected<br></br>
+                          Vulnerability Tsx async abort:   Not affected<br></br>
+                          Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep
+                                                            mtrr pge mca cmov pat pse36 clflush dts ac
+                                                          pi mmx fxsr sse sse2 ss ht tm pbe syscall n
+                                                          x pdpe1gb rdtscp lm constant_tsc art arch_p
+                                                          erfmon pebs bts rep_good nopl xtopology non
+                                                          stop_tsc cpuid aperfmperf tsc_known_freq pn
+                                                          i pclmulqdq dtes64 monitor ds_cpl vmx smx e
+                                                          st tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid s
+                                                          se4_1 sse4_2 x2apic movbe popcnt tsc_deadli
+                                                          ne_timer aes xsave avx f16c rdrand lahf_lm 
+                                                          abm 3dnowprefetch cpuid_fault epb invpcid_s
+                                                          ingle ssbd ibrs ibpb stibp ibrs_enhanced tp
+                                                          r_shadow vnmi flexpriority ept vpid ept_ad 
+                                                          fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erm
+                                                          s invpcid mpx avx512f avx512dq rdseed adx s
+                                                          map avx512ifma clflushopt intel_pt avx512cd
+                                                            sha_ni avx512bw avx512vl xsaveopt xsavec x
+                                                          getbv1 xsaves dtherm ida arat pln pts hwp h
+                                                          wp_notify hwp_act_window hwp_epp hwp_pkg_re
+                                                          q avx512vbmi umip pku ospke avx512_vbmi2 gf
+                                                          ni vaes vpclmulqdq avx512_vnni avx512_bital
+                                                          g avx512_vpopcntdq rdpid fsrm md_clear flus
+                                                          h_l1d arch_capabilities
+                          </div>
+                          <br></br>【TODO】把十三年前学的汇编都忘光了，补习中
+                        </li>
                         <li>
-                          5. TODO blis lab2
+                          6. 多核 【TODO】注意和对比 private 和 shared 的设置
+                        </li>
+                        <li>
+                          7. arm 和 single
                         </li>
                       </ul>
                       <p>GPU 下 GEMM</p>
