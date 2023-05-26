@@ -38,61 +38,17 @@ function post({ data }) {
                     <div className="extended">
                     <h3 className="code">代码：<a href='###' target="_blank">https://github.com/mrzhuzhe/riven</a></h3>
                       <h3>1. 概述</h3>
+                      <p>BLAS Basic Linear Algebra Subprograms 就是指线性代数基础库，内容是矩阵乘法在多种硬件如x86和ARM/CPU/GPU上的实现，一般会作为其他库的底层模块来调用</p>
+                      <p>市面上比较好的实现有openBLAS/intelMKL/Eigen等</p>
+                      <p>这个最主要的意义是：理解矩阵成法可以用硬件的哪些特性来优化，总结优化方法的模式pattern，可以广泛的推广用在其他定制算子开发设计中</p>
                       <p>本次实现了</p>
                       <ul>
-                        <li>1. CPU GEMM 的方向 SIMD分块 &gt; 内存pack分块 </li>
-                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp &gt; cutlass</li>
-                        <li>3. CPU 和 GPU 卷积 navie 实现 &gt;  Winogard Img2col Qnnpack （TODO）</li>
+                        <li>1. CPU 的 GEMM： SIMD分块 &gt; 内存pack分块 &gt; AVX 和 SSE 指令集的细粒度调优 &gt; 汇编指令优化 </li>
+                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp &gt; cutlass【TODO】</li>
+                        <li>3. CPU 和 GPU 卷积 navie 实现 &gt;  Winogard Img2col Qnnpack 【TODO】</li>
                       </ul>
-
-                      <h3>2. 相关工作</h3>
-                      <p>BLAS基础线性代数库研究的目标：</p>
-                      <ul>
-                        <li>矩阵乘法</li>
-                        <li>卷积转化为矩阵乘法</li>
-                        <li>稀疏矩阵乘法</li>
-                      </ul>
-                      <p>用途</p>
-                      <ul>
-                        <li>信号处理FFT</li>
-                        <li><strong className='red'>解线性微分方程方程</strong> 最优化问题/动力学/深度学习贝叶斯 等</li>
-                      </ul>
-                      <p>需要大量用到的知识：计算机体系结构</p>
-                      <ul>
-                        <li>L-cache</li>
-                        <li>GPU 体系结构 异构众核硬件 </li>
-                        <li>内存通信（TODO）</li>
-                      </ul>
-
-                      <h3>3. 实验设计</h3>
-                      <p>CPU 下 GEMM</p>
-                      <ul>
-                        <li>
-                          1. 循环跨步:一个循环中进行多次操作 4次 
-                          <span className='code'>riven/gemm/src/MMult5.c</span>
-                        </li>
-                        <li>
-                          2. 使用寄存器 减少内存读取
-                          <span className='code'>riven/gemm/src/MMult6.c</span>
-                        </li>
-                        <li>
-                          3. 4x4分块，并且手动开启SIMD指令
-                          <span className='code'>riven/gemm/src/MMult16.c</span>
-                        </li>
-                        <li>
-                          4. 对矩阵大小进行z轴分块，注意必须先把分块好的矩阵存下来访问才能触发L1缓存 注意这个函数：PackMatrixA
-                          <span className='code'>
-                            riven/gemm/src/MMult18.c                           
-                          </span>    
-                          <br />
-                          另外注意pack其实只需pack一次，如果每次都pack反而会引起性能下降                     
-                        </li>
-                        <li>                          
-                          5.  到这一步就已经抵达了 Blislab的 Step3 不同的是 BLISLab 提供了除了默认的AVX SIMD指令版本 还提供了汇编的版本的MICRO KERNEL 内层循环
-                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1684080758/gemm/01.jpg" alt="这个版本的整体架构图"></img>
-                          <br></br>似乎blislab的手写asm 比 avx 性能低 
-                          <br></br>而 8x6 6x8 12*4 在 x86 上有问题
-                          <div className='code'>
+                      <p>这是我的Cpu信息</p>
+                      <div className='code'>
                           Architecture:                    x86_64<br></br>
                           CPU op-mode(s):                  32-bit, 64-bit<br></br>
                           Byte Order:                      Little Endian<br></br>
@@ -156,6 +112,55 @@ function post({ data }) {
                                                           g avx512_vpopcntdq rdpid fsrm md_clear flus
                                                           h_l1d arch_capabilities
                           </div>
+
+                      <h3>2. 相关工作</h3>
+                      <p>为什矩阵乘法这么重要：</p>
+                      <ul>
+                        <li>因为矩阵乘法是 卷积/线性方程度直接求解/迭代求解的基础</li>
+                        <li>卷积转化为矩阵乘法</li>
+                        <li>稀疏矩阵乘法</li>
+                      </ul>
+                      <p>用途</p>
+                      <ul>
+                        <li>信号处理FFT</li>
+                        <li><strong className='red'>解线性微分方程方程</strong> 最优化问题/动力学/深度学习贝叶斯 等</li>
+                      </ul>
+                      <p>需要大量用到的知识：计算机体系结构</p>
+                      <ul>
+                        <li>L-cache</li>
+                        <li>GPU 体系结构 异构众核硬件 </li>
+                        <li>内存通信（TODO）</li>
+                      </ul>
+
+                      <h3>3. 实验设计</h3>
+                      <p>CPU 下 GEMM</p>
+                      <ul>
+                        <li>
+                          1. 循环跨步:一个循环中进行多次操作 4次 
+                          <span className='code'>riven/gemm/src/MMult5.c</span>
+                        </li>
+                        <li>
+                          2. 使用寄存器 减少内存读取
+                          <span className='code'>riven/gemm/src/MMult6.c</span>
+                        </li>
+                        <li>
+                          3. 4x4分块，并且手动开启SIMD指令
+                          <span className='code'>riven/gemm/src/MMult16.c</span>
+                        </li>
+                        <li>
+                          4. 对矩阵大小进行z轴分块，注意必须先把分块好的矩阵存下来访问才能触发L1缓存 注意这个函数：PackMatrixA
+                          <span className='code'>
+                            riven/gemm/src/MMult18.c                           
+                          </span>    
+                          <br />
+                          另外注意pack其实只需pack一次，如果每次都pack反而会引起性能下降                     
+                        </li>
+                        <li>                          
+                          5.  到这一步就已经抵达了 Blislab的 Step3 不同的是 BLISLab 提供了除了默认的AVX SIMD指令版本 还提供了汇编的版本的MICRO KERNEL 内层循环
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1684080758/gemm/01.jpg" alt="这个版本的整体架构图"></img>
+                          <br></br>似乎blislab的手写asm 比 avx 性能低 
+                          <br></br>而 8x6 6x8 12*4 在 x86 上有问题
+                          
                           <br></br>【TODO】把十三年前学的汇编都忘光了，补习中
                         </li>
                         <li>
