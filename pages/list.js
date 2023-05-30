@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "gemm",
+                    title: "【HPC 05】CPU 和 CUDA 的 GEMM 实现",
+                    publishedDate: "2023-5-12",
+                    brief: "CPU 和 GPU 的 GEMM 实现",
+                    categories: [{name: "HPC" }]  
+                },
+                {
                     id: "cudaintro",
                     title: "【HPC 04】用Cuda实现和调试一些常见算法",
                     publishedDate: "2023-4-1",
