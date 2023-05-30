@@ -142,7 +142,7 @@ function post({ data }) {
                       <br></br>  
                         注意这个站点在HTTPS下一部分资源加载不出来，我搬迁到了github page上 
                       <br></br>  
-                        <a href="https://github.com/mrzhuzhe/ulmBLAS-sites" target="blank">https://github.com/mrzhuzhe/ulmBLAS-sites</a></p>                    
+                        <a href="https://mrzhuzhe.github.io/ulmBLAS-sites/" target="blank">https://mrzhuzhe.github.io/ulmBLAS-sites/</a></p>                    
                       <ul>
                         <li>
                           1. 循环跨步:一个循环中进行多次操作 4次 
