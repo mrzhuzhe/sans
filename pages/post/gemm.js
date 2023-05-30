@@ -9,9 +9,9 @@ export async function getStaticProps() {
       data: {
         Post: {
                   id: "gemm",
-                  title: "【HPC 05】CPU 和 CUDA 的 BLAS",
+                  title: "【HPC 05】CPU 和 CUDA 的 GEMM 实现",
                   publishedDate: "2023-5-12",
-                  brief: "CPU 和 GPU 的 GEMM 实现，CUDA卷积",
+                  brief: "CPU 和 GPU 的 GEMM 实现",
                   categories: [{name: "HPC" }]  
               }
       }        
@@ -44,7 +44,7 @@ function post({ data }) {
                       <p>本次实现了</p>
                       <ul>
                         <li>1. CPU 的 GEMM： SIMD分块 &gt; 内存pack分块 &gt; AVX 和 SSE 指令集的细粒度调优 &gt; 汇编指令优化 </li>
-                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp</li>
+                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp 原语</li>
                         <li>3. CPU 和 GPU 卷积 navie 实现</li>
                       </ul>
                       <p>这是我的Cpu信息</p>
@@ -134,9 +134,9 @@ function post({ data }) {
                       </ul>
                       <p>总结下来就是如何把计算机CPU芯片的计算单元都利用到极限</p>
                       <h3>3. 实验设计</h3>
-                      <p>CPU 下 GEMM</p>
+                      <h4>CPU 下 GEMM</h4>
                       <p>这一部分主要参考了白牛的文章<a href="https://zhuanlan.zhihu.com/p/65436463" target="blank">OpenBLAS gemm从零入门</a></p>
-                      <p>后面汇编优化的部分参考了blis的 
+                      <p>后面汇编优化的部分参考了<a href="https://github.com/flame/blislab" target="blank">https://github.com/flame/blislab</a>的 
                       <br></br>  
                         <a href="https://www.mathematik.uni-ulm.de/~lehn/apfel/sghpc/gemm/" target="blank">https://www.mathematik.uni-ulm.de/~lehn/apfel/sghpc/gemm/</a>
                       <br></br>  
@@ -196,31 +196,48 @@ function post({ data }) {
                           目前可能是因为有瓶颈存在于其他地方，所以gflow都没有提升也没有下降
                         </li>
                       </ul>
-                      <p>GPU 下 GEMM</p>
+                      <h4>GPU 下 GEMM</h4>
+                      <p>这部分也参考了白牛的知乎<a href="https://zhuanlan.zhihu.com/p/478846788" target="blank">cuda 入门的正确姿势：how-to-optimize-gemm</a></p>
                       <ul>
                         <li>1. v2 使用shared memory </li>
                         <li>2. v3 跨步循环减少 BLOCK数量</li>
                         <li>3. v5 内存对齐</li>
-                        <li>4. v6 warp 优化 【TODO】后续内容 7 8 9</li>
+                        <li>4. v6 warp 优化</li>
+                        <li>5. 【TODO】后续内容 7 8 9</li>
                       </ul>
-                      <p>GPU 下 卷积</p>
+                      <h4>GPU 下 卷积</h4>
                       <ul>
                         <li>1. v1 shared memory 并未加速</li>
-                        <li>2. v3 纹理并未加速</li>
-                        
+                        <li>2. v3 纹理并未加速</li>                        
                       </ul>
                       
 
                       <h3>4. 实验结果</h3>
+                      <p>结论：目前优化gemm有如下通用方案</p>
                       <ul>
-                        <li></li>
+                        <li>1. 数据排布对内存访问的顺序很关键</li>
+                        <li>2. 利用lcache很关键</li>
+                        <li>3. simd 指令很关键</li>
+                        <li>4. 指令排布</li>
+                        <li>5. 预取</li>
+                        <li>6. cuda 下减少开启block的数量</li>
+                        <li>7. cuda 下利用warp原语</li>
                       </ul>
-
 
                       <h3>5. 总结和展望</h3>
+                      <p>总结：</p>
                       <ul>
-                        <li></li>
+                        <li>挖掘硬件特性的利用极限远不止于此</li>
+                        <li>能不能更智能？</li>
                       </ul>
+                      <h3>后续</h3>
+                      <ul>
+                        <li>卷积的 Winogard Img2col Qnnpack 实现</li>
+                        <li>稀疏矩阵求解，和混合精度求解</li>
+                        <li>SIMD 指令的精细研究排布</li>
+                        <li>CuAssemble</li>
+                        <li>Arm 下 powerperf</li>
+                      </ul>                      
 
                       <h3>6. 参考资料</h3>
                       <p>GEMM 相关</p>
@@ -233,7 +250,7 @@ function post({ data }) {
                       </ul>
                       <p>CUDA GEMM</p>
                       <ul>
-                        <li>1. <a href="https://zhuanlan.zhihu.com/p/478846788" target="blank">https://zhuanlan.zhihu.com/p/478846788</a></li>
+                        <li>1. <a href="https://zhuanlan.zhihu.com/p/478846788" target="blank">cuda 入门的正确姿势：how-to-optimize-gemm</a></li>
                         <li>2. Cuda ConvNet <a href="https://code.google.com/archive/p/cuda-convnet/" target="blank">https://code.google.com/archive/p/cuda-convnet/</a></li>
                         <li>3. Caffe <a href="https://github.com/Yangqing/caffe/wiki/Convolution-in-Caffe:-a-memo" target="blank">https://github.com/Yangqing/caffe/wiki/Convolution-in-Caffe:-a-memo</a></li>
                         <li>4. Cutlass</li>
@@ -252,7 +269,7 @@ function post({ data }) {
                       </ul>
                       <p>混合精度</p>
                       <ul>
-                        <li>1. <a href="https://github.com/google/gemmlowp" target="blank">https://github.com/google/gemmlowp</a></li>
+                        <li>1. gemmlowp <a href="https://github.com/google/gemmlowp" target="blank">https://github.com/google/gemmlowp</a></li>
                         <li>2. Qnnpack <a href="https://engineering.fb.com/2018/10/29/ml-applications/qnnpack/" target="blank">https://engineering.fb.com/2018/10/29/ml-applications/qnnpack/</a></li>
                         <li>3. Nvidia Apex <a href="https://github.com/NVIDIA/apex" target="blank">https://github.com/NVIDIA/apex</a> 混合精度</li>
                         <li>4. 半精度模拟单精度 <a href="https://arxiv.org/abs/2203.03341" target="blank">https://arxiv.org/abs/2203.03341</a> 作者博客 <a href="https://enp1s0.github.io/" target="blank">https://enp1s0.github.io/</a></li>                                                
@@ -269,16 +286,9 @@ function post({ data }) {
                       <p>体系结构</p>
                       <ul>
                         <li>1. L1 L2 <a href="https://zhuanlan.zhihu.com/p/488531131" target="blank">https://zhuanlan.zhihu.com/p/488531131</a></li>
-                        <li>2. <strong className='red'>Cuda 体系结构的逆向分析（极其推荐）</strong> <a href="https://zhuanlan.zhihu.com/p/166180054" target="blank">https://zhuanlan.zhihu.com/p/166180054</a> CuAssemble <a href="https://zhuanlan.zhihu.com/p/348234642" target="blank">https://zhuanlan.zhihu.com/p/348234642</a></li>
+                        <li>2. <strong >Cuda 体系结构的逆向分析</strong> <a href="https://zhuanlan.zhihu.com/p/166180054" target="blank">https://zhuanlan.zhihu.com/p/166180054</a> CuAssemble <a href="https://zhuanlan.zhihu.com/p/348234642" target="blank">https://zhuanlan.zhihu.com/p/348234642</a></li>
                       </ul>
-                      <h3>后续</h3>
-                      <ul>
-                        <li>卷积的 Winogard Img2col Qnnpack 实现</li>
-                        <li>稀疏矩阵求解，和混合精度求解</li>
-                        <li>SIMD 指令的惊喜研究排布</li>
-                        <li>CuAssemble</li>
-                        <li>Arm 下 powerperf</li>
-                      </ul>
+                      
                      
                     </div>                    
                     <KeywordsTags tagList={ _post.categories } />                    
