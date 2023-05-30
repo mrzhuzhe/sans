@@ -44,8 +44,8 @@ function post({ data }) {
                       <p>本次实现了</p>
                       <ul>
                         <li>1. CPU 的 GEMM： SIMD分块 &gt; 内存pack分块 &gt; AVX 和 SSE 指令集的细粒度调优 &gt; 汇编指令优化 </li>
-                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp &gt; cutlass【TODO】</li>
-                        <li>3. CPU 和 GPU 卷积 navie 实现 &gt;  Winogard Img2col Qnnpack 【TODO】</li>
+                        <li>2. GPU GEMM 的优化方向 shared memory &gt; stride &gt; warp</li>
+                        <li>3. CPU 和 GPU 卷积 navie 实现</li>
                       </ul>
                       <p>这是我的Cpu信息</p>
                       <div className='code'>
@@ -116,24 +116,33 @@ function post({ data }) {
                       <h3>2. 相关工作</h3>
                       <p>为什矩阵乘法这么重要：</p>
                       <ul>
-                        <li>因为矩阵乘法是 卷积/线性方程度直接求解/迭代求解的基础</li>
-                        <li>卷积转化为矩阵乘法</li>
-                        <li>稀疏矩阵乘法</li>
+                        <li>因为矩阵乘法是 卷积/线性方程度直接求解/迭代求解的基础</li>                        
                       </ul>
                       <p>用途</p>
                       <ul>
-                        <li>信号处理FFT</li>
-                        <li><strong className='red'>解线性微分方程方程</strong> 最优化问题/动力学/深度学习贝叶斯 等</li>
-                      </ul>
-                      <p>需要大量用到的知识：计算机体系结构</p>
+                        <li><strong>卷积：</strong>信号处理FFT</li>
+                        <li><strong className='red'>解线性微分方程：</strong> 最优化问题/深度学习/动力学等</li>
+                      </ul>                      
+                      <p>需要大量用到计算机体系结构的知识：</p>
                       <ul>
-                        <li>L-cache</li>
-                        <li>GPU 体系结构 异构众核硬件 </li>
-                        <li>内存通信（TODO）</li>
+                        <li>Lcache 寄存器</li>
+                        <li>内存排布 和 预取</li>
+                        <li><a href="https://en.wikipedia.org/wiki/X86" target="blank">x86</a> x64指令集 的各自特性</li>
+                        <li>异构众核(GPGPU)的 各种特性</li>
+                        <li>tensor-core等定制计算单元【TODO】</li> 
+                        <li>使用perf工具确认性能瓶颈【TODO】</li>                       
                       </ul>
-
+                      <p>总结下来就是如何把计算机CPU芯片的计算单元都利用到极限</p>
                       <h3>3. 实验设计</h3>
                       <p>CPU 下 GEMM</p>
+                      <p>这一部分主要参考了白牛的文章<a href="https://zhuanlan.zhihu.com/p/65436463" target="blank">OpenBLAS gemm从零入门</a></p>
+                      <p>后面汇编优化的部分参考了blis的 
+                      <br></br>  
+                        <a href="https://www.mathematik.uni-ulm.de/~lehn/apfel/sghpc/gemm/" target="blank">https://www.mathematik.uni-ulm.de/~lehn/apfel/sghpc/gemm/</a>
+                      <br></br>  
+                        注意这个站点在HTTPS下一部分资源加载不出来，我搬迁到了github page上 
+                      <br></br>  
+                        <a href="https://github.com/mrzhuzhe/ulmBLAS-sites" target="blank">https://github.com/mrzhuzhe/ulmBLAS-sites</a></p>                    
                       <ul>
                         <li>
                           1. 循环跨步:一个循环中进行多次操作 4次 
@@ -150,24 +159,41 @@ function post({ data }) {
                         <li>
                           4. 对矩阵大小进行z轴分块，注意必须先把分块好的矩阵存下来访问才能触发L1缓存 注意这个函数：PackMatrixA
                           <span className='code'>
-                            riven/gemm/src/MMult18.c                           
+                            riven/gemm/src/MMult17.c                           
                           </span>    
                           <br />
                           另外注意pack其实只需pack一次，如果每次都pack反而会引起性能下降                     
-                        </li>
-                        <li>                          
-                          5.  到这一步就已经抵达了 Blislab的 Step3 不同的是 BLISLab 提供了除了默认的AVX SIMD指令版本 还提供了汇编的版本的MICRO KERNEL 内层循环
+                          <br />
                           <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1684080758/gemm/01.jpg" alt="这个版本的整体架构图"></img>
-                          <br></br>似乎blislab的手写asm 比 avx 性能低 
-                          <br></br>而 8x6 6x8 12*4 在 x86 上有问题
-                          
-                          <br></br>【TODO】把十三年前学的汇编都忘光了，补习中
+                          <br></br>
+                          Pack完的矩阵 比如 256 X 16 会被打包传入一个函数内计算（我们约定此函数为macro_kernel）
+                          <br></br>
+                          然后在在macro_kernel 内部再进行一次拆分 进一步拆分为针对SIMD的 8x4矩阵的更小函数（我们约定针对SIMD的函数为micro_kernel）
+                          <br></br>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1685438581/gemm/compare_MMult16_MMult17.png" width="640px"></img>
+                          <br></br>
+                          注意这个版本的性能只有10GFLOPS左右
                         </li>
                         <li>
-                          6. 多核 【TODO】注意和对比 private 和 shared 的设置
+                          6. MMult22_avx 改为 avx 实现 从 4x4 矩阵改为 8x4矩阵 并且修改了之前的一个bug store矩阵也改为用avx 指令来store
+                          <br></br>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1685439588/gemm/compare_MMult17_MMult22_avx.png" width="640px"></img>
+                          <br></br>
                         </li>
                         <li>
-                          7. arm 和 single
+                          7. 接下来的版本测试了
+                          <br></br>
+                          MMult22_avx3_8x6  指令改为 8x6 
+                          <br></br>
+                          MMult23_reordering 指令load数据和计算交替进行
+                          <br></br>
+                          MMult24_asm2 改为汇编指令
+                          <br></br>
+                          MMult25_asm_unroll2 汇编指令进一步unroll循环
+                          <br></br>
+                          MMult26_prefetch 使用汇编的cache 预取
+                          <br></br>
+                          目前可能是因为有瓶颈存在于其他地方，所以gflow都没有提升也没有下降
                         </li>
                       </ul>
                       <p>GPU 下 GEMM</p>
@@ -247,11 +273,11 @@ function post({ data }) {
                       </ul>
                       <h3>后续</h3>
                       <ul>
-                        <li>稀疏矩阵求解</li>
-                        <li>SIMD 指令排布</li>
+                        <li>卷积的 Winogard Img2col Qnnpack 实现</li>
+                        <li>稀疏矩阵求解，和混合精度求解</li>
+                        <li>SIMD 指令的惊喜研究排布</li>
                         <li>CuAssemble</li>
-                        <li>Arm 下 powerperf nvidia nsight compute</li>
-                        <li>TVM halide 发展历史</li>
+                        <li>Arm 下 powerperf</li>
                       </ul>
                      
                     </div>                    
