@@ -136,7 +136,7 @@ function post({ data }) {
                       <ul>
                         <li>在GPU3090上 黄色 dem 旋转小球，如果临域搜索的数据结构是用dynamic snode 只有 30-40 fps <br></br>但是用blog里的紧凑内存实现 60-70 fps， 瓶颈在哪里？</li>
                         <li>3d的情况下粒子靠近边界时会卡在一起，会产生数值下溢，目前只能随机把小球往回移动一小段距离，这个方法有点过于trick，有没有通用的解决办法？
-                                        <pre className='code'>if (pos[i][0] >= maxX):
+                                        <pre className='code'>if (pos[i][0] &gt;= maxX):
                                                     pos[i][0] = maxX - eps * ti.random();</pre> </li>
                         <li>fp32 在小步长下很容易数值溢出，是否有通用的方法解决？</li>
                       </ul>
