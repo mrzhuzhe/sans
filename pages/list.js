@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "solver",
+                    title: "【HPC 05】数值求解器",
+                    publishedDate: "2024-1-15",
+                    brief: "矩阵直接求解, 迭代求解, lu分解求解, lu分解求det, householder过程求相似矩阵, qr分解求特征值",
+                    categories: [{name: "HPC" }, { name: "linear algebra"}]  
+                },
+                {
                     id: "gemm",
                     title: "【HPC 05】CPU 和 CUDA 的 GEMM 实现",
                     publishedDate: "2023-5-12",
