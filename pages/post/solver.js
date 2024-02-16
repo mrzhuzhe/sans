@@ -159,10 +159,47 @@ function post({ data }) {
                       <p><strong className='crimson'>分解过程中还是行与行之间存在依赖</strong></p>
 
                       <h4>3.3 QR分解求特征值</h4>
-                      <p>迭代法求特征值和特征向量</p>
-                      <p>householder过程求相似矩阵</p>
-                      <p>gram_schmidt过程求相似矩阵</p>
-                      <p>QR迭代求特征值</p>
+                      <div className='code'>
+                        # code: /solver/test_eigen.cpp
+                        <br></br>
+                        # run 
+                        <br></br>
+                        ./build/bin/test_eigen
+                      </div>
+                      <p className='strong'>迭代法求特征值和特征向量</p>
+                      <div className='code'>
+                        power_method(mat, rows, cols) # in /solver/test_eigen.cpp
+                      </div>
+                      <p>这个方法必须要有一个特别大的特征值的时候才会有用</p>
+                      <p className='strong'>householder过程求相似矩阵</p>
+                      <div className='code'>
+                      householder(mat, rows, cols);
+                      </div>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708089388/solver/w63giogesym0i64rlyoa.jpg" alt="q*q in household"></img></p>
+                      <p>household 通过构造一个Q矩阵来A_similar = Q * A * Q，会将矩阵转化为一个三角化的相似矩阵，相似矩阵和原矩阵有相同的特征值</p>
+                      <p>其中I=Q*Q，一般Q = I - 2w*w^T</p>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708089388/solver/f3j9gnpzwdxedxmit07k.jpg" alt="idea household"></img></p>
+                      <p>理想对称正定状况下，转换完毕后的矩阵如上图</p>
+                      <p className='strong'>gram_schmidt过程求相似矩阵</p>
+                      <div className='code'>
+                      gram_schmidt(A, Q, rows, cols);
+                      </div>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708089388/solver/c1jmgagwtqsm1fhtjucc.jpg" alt="q.tans*q"></img></p>
+                      <p>gram schmidt 过程跟之前类似 构造一个 I = Q.transpose * Q </p>
+                      <p>q就很容易得到R R = Q.transpose() * A，如下图</p>
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708089389/solver/uy2zxiv27db1by2mcyqo.jpg" alt="a=qr"></img></p>                      
+                      <p className='strong'>QR迭代求特征值</p>
+                      <p>来将 A_similar = Q.transpose() * A * Q 来将 A 对角化，最后pivot中轴线上的值就是特征值</p>
+                      <div className='code'>
+                        qr_eigen(A, rows, cols)
+                      </div>
+                      <p>Q迭代也对矩阵precondition有要求，矩阵为正定才一定能收敛</p>
+                      <h3>4. 结论</h3>
+                      <p>目前只是初步实现，还需要后续加深理解</p>
+                      <p>后续要分析一下收敛成立的原因<br></br>
+                      还有precondition</p>
+                      <p>另外还需分析一下并行化的方案</p>
+                      <p>当然最重要的还是要和实际物理问题的求解联系起来</p>
                       <h3>5. 后续工作</h3>
                       <ul>
                         <li>
