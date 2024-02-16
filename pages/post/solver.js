@@ -116,7 +116,7 @@ function post({ data }) {
                       <p>a - b = 5 </p>
                       <p><strong>Rank</strong> is 2 equal to unknow Number solution is unique</p>
                       <p>Rank = number of independent 的限制条件(线性规划simplex)</p>
-                      <p>但是如果我们再加一条independent的限制条件 例如 3a - b = 1, 这和前两个式子组成的3a-b = 13矛盾，则无界</p>
+                      <p>但是如果我们再加一条independent的限制条件 例如 3a - b = 1, 这和前两个式子组成的3a-b = 13矛盾，则无解</p>
 
                       <p><strong>无穷解的情况</strong> low rank </p>
                       <p>例如:</p>
