@@ -99,11 +99,70 @@ function post({ data }) {
                       <p>例如对<strong>近似正定矩阵</strong>可以用 <strong>雅各比迭代</strong> 或者 <a target='blank' href='https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf'>共轭梯度</a></p>
                       <p>但是迭代法也不是万能的，迭代法一般都要满足一些<strong>Precondition</strong></p>
                       <p>实际开发中，我们经常用到<strong>Eigen</strong>这个库来表示矩阵，用它类提供的矩阵相乘，点乘和小矩阵求解</p>
-
+                      <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708075921/solver/pl1yobnnolkxgvy4uumx.jpg" alt="eigen"></img></p>
                       <h3>3.实验</h3>
+                      <h4>3.1 直接法求解</h4>
+                      <div className='code'>
+                        # cd /solver 
+                        <br></br>
+                        # code /solver/test_simp.cpp
+                        <br></br>
+                        ./build/bin/test_simp
+                      </div>
+                      <p>打印了消项的过程</p>
+                      <p><strong>不可解的情况</strong> singular </p>
+                      <p>例如:</p>
+                      <p>a + b = 3 </p>
+                      <p>a - b = 5 </p>
+                      <p><strong>Rank</strong> is 2 equal to unknow Number solution is unique</p>
+                      <p>Rank = number of independent 的限制条件(线性规划simplex)</p>
+                      <p>但是如果我们再加一条independent的限制条件 例如 3a - b = 1, 这和前两个式子组成的3a-b = 13矛盾，则无界</p>
 
-                      <h3>4.结论</h3>
+                      <p><strong>无穷解的情况</strong> low rank </p>
+                      <p>例如:</p>
+                      <p>a + b = 3 </p>
+                      <p>2*a + 2*b = 6 </p>
+                      <p>Rank is lower than number of unknow solution is infinite </p>
+                      <p>这个版本缺少一个矩阵重排，对应消项过程中pivot为0的情况</p>
+                      <p><strong className='crimson'>行与行之间存在依赖关系，无法并行化</strong></p>
+                      <h4>3.2 LU分解</h4>
+                      <div className='code'>
+                        # cd /solver 
+                        <br></br>
+                        # cmake -B build -S .
+                        <br></br>
+                        # cmake -build build
+                        <br></br>
+                        # code: /solver/test_lu.cpp
+                        <br></br>
+                        # run 
+                        <br></br>
+                        ./build/bin/test_lu
+                      </div>
+                      <ul>
+                        <li>1. lu_factor的过程打印
+                          <br></br>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708083230/solver/mhq2eieko3okqafu7jaw.jpg"></img>
+                        </li>
+                        <li>2. plu_factor 的测试</li>
+                        <li>3. plu_solver 和 eigen solver的结果对比
+                          <br></br>
+                          <img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1708083230/solver/rbxgibwyfbehygfonyc6.jpg"></img>
+                        </li>
+                      </ul>
+                      <p>lu把原本一个线性方程组的求解，拆分成两个线性方程组的求解，
+                        <br></br>
+                        但是相对消项要对A和b都做消项, lu只需要对A做分解， 注意这一步复杂度还是 O(n^3)，但是矩阵cols减少了
+                        <br></br>
+                        而两个现行方程组的求解只需在当前列回代消项 复杂度从O(n^3)降低到O(n^2)
+                      </p>
+                      <p><strong className='crimson'>分解过程中还是行与行之间存在依赖</strong></p>
 
+                      <h4>3.3 QR分解求特征值</h4>
+                      <p>迭代法求特征值和特征向量</p>
+                      <p>householder过程求相似矩阵</p>
+                      <p>gram_schmidt过程求相似矩阵</p>
+                      <p>QR迭代求特征值</p>
                       <h3>5. 后续工作</h3>
                       <ul>
                         <li>
@@ -114,6 +173,9 @@ function post({ data }) {
                         </li>
                         <li>
                           3. 实现GMRES
+                        </li>
+                        <li>
+                          4. 在实际的物理问题场景中实现
                         </li>
                       </ul>
                      
