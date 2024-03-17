@@ -178,7 +178,7 @@ function post({ data }) {
                         <br></br>
                         /build/bin/test_cg 32 1
                       </div>
-                      <p>GMRES最小化 r = b- Ax 的最小二乘</p>
+                      <p>GMRES在计算过程中需要求特征值</p>
                       <p>&nbsp;</p>
 
                       <h3>4. 结论</h3>
