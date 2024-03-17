@@ -9,7 +9,7 @@ export async function getStaticProps() {
       data: {
         Post: {
                 id: "iteration_solver",
-                title: "【HPC 07】Coding迭代法数值求解器",
+                title: "【HPC 07】Coding常见迭代法数值求解器",
                 publishedDate: "2024-3-17",
                 brief: "jacobian迭代， guassion-seidel迭代，multigrid预条件，conjugate gradient迭代, preconditioner conjugate gradient, biconjugate gradient, GMRES, biconjugate gradient stablized",
                 categories: [{name: "HPC" }, { name: "linear algebra"}] 
