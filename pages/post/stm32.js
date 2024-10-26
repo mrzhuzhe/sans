@@ -38,65 +38,152 @@ function post({ data }) {
                     <div className="extended">
                     <h3 className="code">代码：<a href='https://github.com/mrzhuzhe/peasant/tree/main/stm32' target="_blank">https://github.com/mrzhuzhe/peasant/tree/main/stm32</a></h3>
                       <h3>1. 概述</h3>
-                      之前参考<a href='https://wiki.osdev.org/Bare_Bones' target="_blank">osdev.org</a>做了一些 x86 系统boot / 驱动 的练习
+                      <p>目标：开发自定义硬件</p> 
+                      <p>阅读<a href='https://lwn.net/Kernel/LDD3/' target='_blank'>《Linux Device Drivers, Third Edition》</a>这本书有了一个初步的概念</p> 
+                      <p>操作系统包含</p> 
                       <ul>
-                        <li>启动流程 https://github.com/mrzhuzhe/peasant/tree/main/boot_test  </li>
-                        <li>内核模块 https://github.com/mrzhuzhe/peasant/tree/main/kernel_test </li>
-                      </ul>
-                      希望有个平台可以尝试固件的开发，因此搜索到了STM32平台
-                      &nbsp;
+                        <li>区分内核态和用户态</li>
+                        <li>内核态支持系统调用</li>
+                        <li>内核负责：内存管理，文件系统，中断处理，任务schedule,网络协议等</li>
+                        <li>内核和硬件EPROM固件通信，通过固件来操作寄存器和内存来命令硬件</li>
+                        <li>硬件电路由VHDL定义，ALU risc-spm, uart transmitter等IP模块来支持固件, 参考《advanced digital design with the verilog hdl》By Michael D. Ciletti</li>
+                      </ul>   
+                      <p>练习： </p>       
+                      <ul>
+                        <li>之前参考<a href='https://wiki.osdev.org/Bare_Bones' target="_blank">osdev.org</a>做了一些 x86 系统boot / 驱动 的练习</li>
+                        <li><p>希望有个平台可以尝试固件的开发，因此搜索到了STM32平台</p>
+                            <p>本次使用 stm32f103c8t6 最小系统板 </p>
+                            <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1729952175/stm32/stm32.jpg" width="960" /></p>
+                        </li>
+                      </ul>                                           
                       <br />
-
                       <h3>2. 相关工作</h3>
                       <ul>
-                        <li>VHDL IP核 </li>
-                        <li>firmware固件开发</li>
-                        <li>驱动开发</li>
-                        <li>内核开发</li>
+                        <li>本次的练习大量参考了 <a href='https://www.bilibili.com/video/BV1th411z7sn/?spm_id_from=333.999.0.0' target="_blank">江协科技《STM32入门教程-2023版》</a>  
+                        &nbsp; 和<a href='https://github.com/coderwhq/learning-STM32' target="_blank">一位网友的代码</a></li>
+                        <li>Opencm3 部分参考了 <a href='https://github.com/ve3wwg/stm32f103c8t6' target="_blank">《Beginning STM32 : Developing with FreeRTOS, libopencm3 and GCC》</a></li>
+                        <li>stm32f1xx 系列<a href='https://www.st.com/resource/en/reference_manual/rm0008-stm32f101xx-stm32f102xx-stm32f103xx-stm32f105xx-and-stm32f107xx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf' target="_blank">产品手册 RM0008</a> 详细列出了每一种协议和功能的所需配置</li>
                       </ul>
 
-                      <h3>3. 实验设计</h3>
+                      <h3>3. 演示</h3>
                       <ul>
-                        <li>GPIO</li>
-                        <li>I2C</li>
-                        <li>SPI</li>
-                        <li>UART</li>
-                        <li>USB</li>
-                        <li>A2D</li>
-                        <li>PWM</li>
-                        <li>DMA</li>
-                        <li>CAN 总线</li>
+                        <li><p>演示1： PWM 控制电机</p>
+                        <p>Todo 此处添加b站演示</p></li>
+                        <li><p>演示2： A2D 读取传感器</p>
+                        <p>Todo 此处添加b站演示</p></li>
+                        <li><p>演示3： UART tty通信</p>
+                          <div className='code'>
+                            # 注意这里要设置波特率 <br />
+                            # baud rate to 38400, 8 bits, 1 stop bit, no parity: <br />
+                            $chmod 666 /dev/ttyUSB0 <br />
+                            $stty -F /dev/ttyUSB0 38400 cs8 -cstopb -parenb -echo -icanon -onlcr
+                          </div>
+                        </li>
+                      </ul>
+                      
+                      <h3>4. 实验设计和结果</h3>
+                      <ul>
+                        <li>GPIO
+                          <p><a href='https://github.com/mrzhuzhe/peasant/blob/main/stm32/CrossCompile.md' target="_blank">arm-none-eabi 交叉编译环境如何设置看这里</a></p>
+                          <p>下载 opencm3 stlink-v2 freertos 的代码并编译</p>
+                          <p> 得到一个这样的目录结构，对应makefile中寻找freertos和opencm3依赖库的路径</p>
+                          <div className='code'>
+                            /libs <br />
+                            &emsp; - freertos <br />
+                            &emsp;&emsp; - include <br />
+                            &emsp;&emsp; - Source <br />
+                            &emsp;&emsp;&emsp; - portable <br />
+                            &emsp; - libopencm3 <br />
+                            &emsp;&emsp; - include <br />
+                            &emsp;&emsp;&emsp; - libopencm3 <br />
+                            &emsp;&emsp; - lib <br />
+                            &emsp;&emsp;&emsp; - libopencm3_stm32f1.a <br />
+                          </div>
+                          <p>工程模板</p>
+                          <div className='code'>
+                            // GPIO 测试， 仅使用opencm3 <br />
+                            /stm32/led_test/ <br />
+                            <br />
+                            // rtos gpio 测试 <br />
+                            /stm32/rtos-template <br />
+                          </div>
+                          <p>注意其中 stm32f103c8t6.ld 指定了代码段的内存分布</p>
+                        </li>
+                        <li>I2C
+                          <p>用来和OLED， tb6612cnf电机控制器，MPU6050陀螺仪等外设通信</p>
+                          <div className='code'>
+                            // 用软件i2c连接oled和mpu6050陀螺仪<br />
+                            /stm32/rtos-mpu<br />
+                            <br />
+                            // 用软件i2c连接oled<br />
+                            /stm32/rtos-oled
+                          </div>
+                          <br />
+                        </li>
+                        <li>SPI
+                          <p>用来和winbond w25q64外部flash芯片通信，速度更快</p>
+                          <p>Todo 目前芯片烧了 待验证</p>
+                        </li>
+                        <li>UART
+                          <p>用来和电脑 ttyUSB 通信</p>
+                          <div className='code'>
+                            // uart 通信<br />
+                            /stm32/uart_test/
+                          </div>
+                          <br />
+                        </li>
+                        <li>USB
+                          <p>USB cdc 串口通信</p>
+                          <div className='code'>
+                            // usb 连接 , 【注意】用这个连接时一定要拔掉电源，因为usb本身就是电源<br />
+                            /stm32/rtos-usbcdc
+                          </div>
+                          <br />
+                        </li>
+                        <li>A2D
+                          <p>用来接各种外部传感器</p>
+                          <div className='code'>
+                            // 模拟信号转换为数字信号<br />
+                            /stm32/rtos-adc
+                          </div>
+                          <br />
+                        </li>
+                        <li>PWM
+                          <p>用来把数字信号转为模拟信号，驱动外部电机，舵机等，需要用到TIM</p>
+                          <div className='code'>
+                            // pwn 驱动舵机和电机 用的电机控制芯片是 tb6612fng<br />
+                            /stm32/pwm
+                          </div>
+                          <br />
+                        </li>
+                        <li>DMA
+                          <p>代替cpu来访问内存，节约CPU io开销，可以用来篡改内存</p>
+                          <div className='code'>
+                            // 用dma搬运adc数据<br />
+                            /stm32/rtos-dma
+                          </div>
+                          <br />
+                        </li>
+                        <li>CAN 总线
+                          <p>用来在多个设备之间通过统一的通信协议通信，距离远抗干扰</p>
+                          <p>这里因为我只有一个芯片，所以开启了回环模式，在一个芯片里也可以xmit 和 receive</p>
+                          <div className='code'>
+                            // can 总线<br />
+                            /stm32/rtos-can
+                          </div>
+                        </li>
                       </ul>
 
-                      <h3>4. 实验结果</h3>
+                      <h3>5. 后续工作</h3>                      
                       <ul>
-                        <li>演示1： PWM 控制电机</li>
-                        <li>演示2： A2D 读取传感器</li>
-                        <li>演示3： UART tty通信</li>
-                      </ul>
-
-
-                      <h3>5. 总结和展望</h3>
-                      结合AMD的HSA标准和ROCm openstak开发CPU 和 GPU驱动
-                      <ul>
-                        <li>1. HSA </li>
-                        <li>2. ROCm </li>
-                        <li>3. kernel.org </li>
-                      </ul>
-                      <br />
-                      后续工作
-                      <ul>
-                        <li>1. wifi 模块 / I2C 拓展板等 </li>
+                        <li>1. 后续会结合 <a href='https://docs.kernel.org/' target="_blank">https://docs.kernel.org/</a> 和 <a href='https://github.com/ROCm/ROCm' target="_blank">ROCm</a> 和 龙芯 等开源硬件平台 练习开发操作系统内核和驱动 </li>                      
+                        <li>1. wifi 模块 / I2C 拓展板等 继续熟悉stm32的各种细节 </li>
                         <li>2. PCIE总线 </li>
-                        <li>3. UEFI tianoCore </li>
+                        <li>3.  <a href='https://github.com/tianocore/edk2' target="_blank">UEFI tianoCore</a> 固件平台</li>
+                        <li>4. 通过Fpga开发板尝试常见IP模块的实现</li>
                       </ul>
 
-                      <h3>6. 参考资料</h3>
-                      <ul>
-                        <li>1. 《Beginning STM32 : Developing with FreeRTOS, libopencm3 and GCC》https://github.com/ve3wwg/stm32f103c8t6 </li>
-                        <li>2. 江协科技《STM32入门教程-2023版》 https://www.bilibili.com/video/BV1th411z7sn/?spm_id_from=333.999.0.0 https://github.com/coderwhq/learning-STM32 </li>
-                        <li>3. Stm32 手册 rm0008 https://www.st.com/resource/en/reference_manual/rm0008-stm32f101xx-stm32f102xx-stm32f103xx-stm32f105xx-and-stm32f107xx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf</li>
-                      </ul>
+                      
                     </div>
                     
                     <KeywordsTags tagList={ _post.categories } />
