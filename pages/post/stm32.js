@@ -9,9 +9,9 @@ export async function getStaticProps() {
       data: {
         Post: {
                   id: "stm32",
-                  title: "【Sim2real】03 用opencm3开发stm32f1",
+                  title: "【Sim2real】03 用opencm3开发 stm32f107c8t6",
                   publishedDate: "2024-10-26",
-                  brief: " 基于 opencm3 尝试了开发 stm32f103c8t6最小系统板的嵌入式开发， 搭建了Gcc toolchain, 测试了 UART USB I2C SPI 等通信协议, PWM ADC 等数模转换, CAN 总线等 ",
+                  brief: " 基于 opencm3 尝试了开发 stm32f107c8t6最小系统板的嵌入式开发， 搭建了Gcc toolchain, 测试了 UART USB I2C SPI 等通信协议, PWM ADC 等数模转换, CAN 总线等 ",
                   categories: [{name: "stm32" }, {name: "opencm3" }, {name: "rtos" }]  
               }
       }        
@@ -52,7 +52,7 @@ function post({ data }) {
                       <ul>
                         <li>之前参考<a href='https://wiki.osdev.org/Bare_Bones' target="_blank">osdev.org</a>做了一些 x86 系统boot / 驱动 的练习</li>
                         <li><p>希望有个平台可以尝试固件的开发，因此搜索到了STM32平台</p>
-                            <p>本次使用 stm32f103c8t6 最小系统板 </p>
+                            <p>本次使用 stm32f107c8t6 最小系统板 </p>
                             <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1729952175/stm32/stm32.jpg" width="960" /></p>
                         </li>
                       </ul>                                           
