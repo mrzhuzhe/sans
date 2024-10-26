@@ -174,7 +174,31 @@ function post({ data }) {
                         </li>
                       </ul>
 
-                      <h3>5. 后续工作</h3>                      
+                      <h3>5. 遇到的问题</h3>
+                      
+                      <ul>
+                        <li>
+                          <p>1. STlink 有debug的功能，在接通的情况下可以直接debug stm32单片机中的代码</p>
+                          <div className='code'>
+                          #启动远程调试server<br />
+                          $st-util -p 4500<br />
+                          #启动arm gdb<br />
+                          $arm-none-eabi-gdb<br />
+                          (arm-none-eabi-gdb) target extended-remote localhost:4500<br />
+
+                          (arm-none-eabi-gdb) file your_path/your app.elf
+                          </div>
+                          <br />
+                        </li>
+                        <li>
+                          <p>2. 有时如果有代码禁用了stm32 开发板上对应 stlink的IO 引脚 pin</p>
+                          <p>会导致无法flash烧录代码，这个时候需要按住reset模式，再用stlink erase删除flash中的代码才能继续烧录</p>
+                          <br />
+                        </li>
+                      </ul>
+                      
+                      
+                      <h3>6. 后续工作</h3>                      
                       <ul>
                         <li>1. 后续会结合 <a href='https://docs.kernel.org/' target="_blank">https://docs.kernel.org/</a> 和 <a href='https://github.com/ROCm/ROCm' target="_blank">ROCm</a> 和 龙芯 等开源硬件平台 练习开发操作系统内核和驱动 </li>                      
                         <li>1. wifi 模块 / I2C 拓展板等 继续熟悉stm32的各种细节 </li>
