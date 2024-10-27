@@ -46,7 +46,12 @@ function post({ data }) {
                         <li>内核态支持系统调用</li>
                         <li>内核负责：内存管理，文件系统，中断处理，任务schedule,网络协议等</li>
                         <li>内核和硬件EPROM固件通信，通过固件来操作寄存器和内存来命令硬件</li>
-                        <li>硬件电路由VHDL定义，ALU risc-spm, uart transmitter等IP模块来支持固件, 参考《advanced digital design with the verilog hdl》By Michael D. Ciletti</li>
+                        <li>硬件电路由VHDL定义，ALU risc-spm, uart transmitter等IP模块来支持固件, 参考《advanced digital design with the verilog hdl》By Michael D. Ciletti
+                          <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1730020949/stm32/6050.jpg" width="640" />
+                          <br/>
+                          上图：传奇的16位新芯片 6502
+                          </p>
+                        </li>
                       </ul>   
                       <p>练习： </p>       
                       <ul>
@@ -87,7 +92,7 @@ function post({ data }) {
                           <p><a href='https://github.com/mrzhuzhe/peasant/blob/main/stm32/CrossCompile.md' target="_blank">arm-none-eabi 交叉编译环境如何设置看这里</a></p>
                           <p>下载 opencm3 stlink-v2 freertos 的代码并编译</p>
                           <p> 得到一个这样的目录结构，对应makefile中寻找freertos和opencm3依赖库的路径</p>
-                          <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1730013957/stm32/Screenshot_from_2024-10-27_15-22-17.png" width="320"/></p>                         
+                          <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1730013957/stm32/Screenshot_from_2024-10-27_15-22-17.png" width="240"/></p>                         
                           <p>工程模板</p>
                           <div className='code'>
                             // GPIO 测试， 仅使用opencm3 <br />
