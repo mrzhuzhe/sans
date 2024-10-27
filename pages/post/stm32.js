@@ -190,10 +190,10 @@ function post({ data }) {
                       <h3>6. 后续工作</h3>                      
                       <ul>
                         <li>1. 后续会结合 <a href='https://docs.kernel.org/' target="_blank">https://docs.kernel.org/</a> 和 <a href='https://github.com/ROCm/ROCm' target="_blank">ROCm</a> 和 龙芯 等开源硬件平台 练习开发操作系统内核和驱动 </li>                      
-                        <li>1. wifi 模块 / I2C 拓展板等 继续熟悉stm32的各种细节 </li>
-                        <li>2. PCIE总线 </li>
-                        <li>3.  <a href='https://github.com/tianocore/edk2' target="_blank">UEFI tianoCore</a> 固件平台</li>
-                        <li>4. 通过Fpga开发板尝试常见IP模块的实现</li>
+                        <li>2. wifi 模块 / I2C 拓展板等 继续熟悉stm32的各种细节 </li>
+                        <li>3. PCIE总线 </li>
+                        <li>4.  <a href='https://github.com/tianocore/edk2' target="_blank">UEFI tianoCore</a> 固件平台</li>
+                        <li>5. 通过Fpga开发板尝试常见IP模块的实现</li>
                       </ul>
 
                       
