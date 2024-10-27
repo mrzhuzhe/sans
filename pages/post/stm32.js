@@ -87,18 +87,7 @@ function post({ data }) {
                           <p><a href='https://github.com/mrzhuzhe/peasant/blob/main/stm32/CrossCompile.md' target="_blank">arm-none-eabi 交叉编译环境如何设置看这里</a></p>
                           <p>下载 opencm3 stlink-v2 freertos 的代码并编译</p>
                           <p> 得到一个这样的目录结构，对应makefile中寻找freertos和opencm3依赖库的路径</p>
-                          <div className='code'>
-                            /libs <br />
-                            &emsp; - freertos <br />
-                            &emsp;&emsp; - include <br />
-                            &emsp;&emsp; - Source <br />
-                            &emsp;&emsp;&emsp; - portable <br />
-                            &emsp; - libopencm3 <br />
-                            &emsp;&emsp; - include <br />
-                            &emsp;&emsp;&emsp; - libopencm3 <br />
-                            &emsp;&emsp; - lib <br />
-                            &emsp;&emsp;&emsp; - libopencm3_stm32f1.a <br />
-                          </div>
+                          <p><img src="https://res.cloudinary.com/dgdhoenf1/image/upload/v1730013957/stm32/Screenshot_from_2024-10-27_15-22-17.png" width="320"/></p>                         
                           <p>工程模板</p>
                           <div className='code'>
                             // GPIO 测试， 仅使用opencm3 <br />

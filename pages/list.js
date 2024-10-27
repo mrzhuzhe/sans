@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                    id: "stm32",
+                    title: "【Sim2real】03 用opencm3开发 stm32f107c8t6",
+                    publishedDate: "2024-10-26",
+                    brief: " 基于 opencm3 尝试了开发 stm32f107c8t6最小系统板的嵌入式开发， 搭建了Gcc toolchain, 测试了 UART USB I2C SPI 等通信协议, PWM ADC 等数模转换, CAN 总线等 ",
+                    categories: [{name: "stm32" }, {name: "opencm3" }, {name: "rtos" }]  
+                },
+                {
                     id: "iteration_solver",
                     title: "【HPC 07】Coding常见迭代法数值求解器",
                     publishedDate: "2024-3-17",
