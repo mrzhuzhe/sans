@@ -78,14 +78,14 @@ function post({ data }) {
                       <h3>5. 总结和展望</h3>
                       <ul>
                         <li>1. 开发自定义LLVM后端支持新硬件</li>
-                        <li>2. 虚拟机 和 浏览器</li>
+                        <li>2. JIT 虚拟机 和 浏览器</li>
                       </ul>
 
                       <h3>6. 参考资料</h3>
                       <ul>
                         <li>1. llvm kaleiscope</li>
                         <li>2. llvm CPU0 Backend</li>
-                        <li>3. JIT 和虚拟机</li>
+                        <li>3. 一生一芯</li>
                       </ul>
                     </div>
                     
