@@ -9,7 +9,7 @@ export async function getStaticProps() {
       data: {
         Post: {
                   id: "llvm-passes",
-                  title: "【HPC 08】LLVM 插件调试 loopVectorize pass",
+                  title: "【HPC 08】LLVM 插件调试 LoopVectorize Pass",
                   publishedDate: "2025-12-18",
                   brief: "用llvm插件调试loopVectorize pass",
                   categories: [{name: "编译器" }]  
@@ -42,22 +42,27 @@ function post({ data }) {
                         <li>1. llvm pass 调试需要重编，用插件调试节约编译时间</li>
                         <li>2. llvm codegen 也会用到 passes 可以 load plugin </li>
                         <li>3. 熟悉loop Vectorize 流程 alias PHI 分析 </li>
-                        <li>4. 为开发LLVM后端做准备 </li>
+                        <li>4. 为开发LLVM后端适配自定义硬件做准备 </li>
+                        <li>5. PASS 也可以用来实现自定义runtime库 </li>
                       </ul>
 
                       <h3>2. 相关工作</h3>
                       <ul>
                         <li>1. llvm passManager </li>
-                        <li>2. llvm .ll 中间表示 IR  </li>
-                        <li>3. llvm JIT </li>
-                        <li>4. llvm backend codegen CPU0 </li>
+                        <li>2. LLVM auto-vecotirze Vplan <a href="https://llvm.org/devmtg/2017-03/assets/slides/introducing_vplan_to_the_loop_vectorizer.pdf" target="_blank">Introducing_vplan_to_the_loop_vectorizer(2017)</a></li>
+                        <li>3. llvm .ll 中间表示 IR  </li>
+                        <li>4. llvm JIT ， 参考 llvm cuda backend的最小例子 </li>
+                        <li>5. llvm backend codegen CPU0， 我自己的练习 <a href="https://github.com/mrzhuzhe/LLVM-12X" target="_blank" >https://github.com/mrzhuzhe/LLVM-12X</a>
+                          <br />里面的分支就是各个chapter的代码
+                          </li>
                       </ul>
 
                       <h3>3. 实验设计</h3>
                       <h4>3.1 提取 llvm loopVectorize 插件中遇到的实际问题</h4>
+                      <p>版本 llvm 22.0</p>
                       <ul>
                         <li>1. RTTI 选项问题</li>
-                        <li>2. .ll中 atribute 设置问题</li>
+                        <li>2. .ll中 attribute 设置问题</li>
                       </ul>
                       <h4>3.2 Debug loopVectorize 插件中遇到的世纪问题</h4>
                       <ul>
@@ -67,7 +72,7 @@ function post({ data }) {
                       
 
                       <h3>4. 实验结果</h3>
-                      <h4>4.1 一些GCC中遇到过的问题LLVM中是如何处理的？</h4>
+                      <h4>4.1 一些GCC中遇到过的能手工向量化却不能向量化的问题，LLVM中是如何处理的？</h4>
                       <ul>
                         <li>1. Alias 分析深度限制</li>
                         <li>2. Control in loop</li>
@@ -78,14 +83,17 @@ function post({ data }) {
                       <h3>5. 总结和展望</h3>
                       <ul>
                         <li>1. 开发自定义LLVM后端支持新硬件</li>
-                        <li>2. JIT 虚拟机 和 浏览器</li>
+                        <li>2. JIT 虚拟机 和 浏览器 </li>
+                        <li>3. 如何跟上LLVM 的 roadMap ?</li>
                       </ul>
 
                       <h3>6. 参考资料</h3>
                       <ul>
-                        <li>1. llvm kaleiscope</li>
-                        <li>2. llvm CPU0 Backend</li>
-                        <li>3. 一生一芯</li>
+                        <li>1. 如何实现一个llvm前端 <a href="https://github.com/ghaiklor/llvm-kaleidoscope" target="_blank" >LLVM kaleidoscope</a></li>
+                        <li>2. <a href="https://jonathan2251.github.io/lbd/backendstructure.html" target="_blank">LLVM CPU0 Backend</a></li>
+                        <li>3. GCC internal GIMPLE auto-vectorize</li>
+                        <li>4. 一生一芯 集成电路前后端</li>
+                        <li>5. PLCT 实验室的 V8 引擎流程解释 torque ignite ... </li>
                       </ul>
                     </div>
                     
