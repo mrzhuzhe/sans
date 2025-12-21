@@ -72,7 +72,7 @@ function post({ data }) {
                       
 
                       <h3>4. 实验结果</h3>
-                      <h4>4.1 一些GCC中遇到过的能手工向量化却不能向量化的问题，LLVM中是如何处理的？</h4>
+                      <h4>4.1 一些GCC中遇到过的能手工向量化却不能自动向量化的问题，LLVM中是如何处理的？</h4>
                       <ul>
                         <li>1. Alias 分析深度限制</li>
                         <li>2. Control in loop</li>
@@ -81,7 +81,7 @@ function post({ data }) {
 
 
                       <h3>5. 总结和展望</h3>
-                      <p>编译器的一些变态又合理的行为</p>
+                      <p>编译器的一些严格却又合理的行为</p>
                       <ul>
                         <li>1. IEEE 754 浮点计算约定：满足交换律，不满足结合律: 例如 a * b *c != a * (b*c) 编译器一定会保证计算顺序</li>
                         <li>2. IEEE 754 复数浮点数的异常处理：会导致复数乘法比手动计算慢五十倍 <a href="https://stackoverflow.com/questions/42659668/stdcomplex-multiplication-is-extremely-slow" _target="blank">stdcomplex-multiplication-is-extremely-slow</a></li>
