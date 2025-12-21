@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                  id: "llvm-passes",
+                  title: "【HPC 08】用LLVM 插件调试 Pass",
+                  publishedDate: "2025-12-18",
+                  brief: "用llvm插件调试loopVectorize pass",
+                  categories: [{name: "编译器" }]  
+                },
+                {
                     id: "stm32",
                     title: "【Sim2real】03 用opencm3开发 stm32f107c8t6",
                     publishedDate: "2024-10-26",
