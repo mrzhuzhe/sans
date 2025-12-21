@@ -5,7 +5,7 @@ export async function getStaticProps() {
             allPosts: [
                 {
                   id: "llvm-passes",
-                  title: "【HPC 08】用LLVM 插件调试 Pass",
+                  title: "【HPC 08】如何用LLVM 插件调试 Pass",
                   publishedDate: "2025-12-18",
                   brief: "用llvm插件调试loopVectorize pass",
                   categories: [{name: "编译器" }]  
