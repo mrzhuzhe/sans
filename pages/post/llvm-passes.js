@@ -74,9 +74,9 @@ function post({ data }) {
                       <h3>4. 实验结果</h3>
                       <h4>4.1 一些GCC中遇到过的能手工向量化却不能自动向量化的问题，LLVM中是如何处理的？</h4>
                       <ul>
-                        <li>1. Alias 分析深度限制</li>
-                        <li>2. Control in loop</li>
-                        <li>3. Gather in loop</li>
+                        <li>1. Alias 分析深度限制：循环中是否有数据是相互依赖的</li>
+                        <li>2. Control in loop: 循环中有判断</li>
+                        <li>3. Gather in loop: 循环中数据访问不连续</li>
                       </ul>
 
 
