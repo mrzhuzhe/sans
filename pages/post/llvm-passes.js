@@ -48,7 +48,7 @@ function post({ data }) {
 
                       <h3>2. 相关工作</h3>
                       <ul>
-                        <li>1. llvm passManager </li>
+                        <li>1. llvm passManager, 代码分析，代码插入，代码插桩 </li>
                         <li>2. LLVM auto-vecotirze Vplan <a href="https://llvm.org/devmtg/2017-03/assets/slides/introducing_vplan_to_the_loop_vectorizer.pdf" target="_blank">Introducing_vplan_to_the_loop_vectorizer(2017)</a></li>
                         <li>3. llvm .ll 中间表示 IR  </li>
                         <li>4. llvm JIT ， 参考 llvm cuda backend的最小例子 </li>
@@ -94,6 +94,7 @@ function post({ data }) {
                         <li>3. GCC internal GIMPLE auto-vectorize</li>
                         <li>4. 一生一芯 集成电路前后端</li>
                         <li>5. PLCT 实验室的 V8 引擎流程解释 torque ignite ... </li>
+                        <li>6. ROCm / qemu / Linuv divice driver / Stm32 driver </li>
                       </ul>
                     </div>
                     
