@@ -63,14 +63,16 @@ function post({ data }) {
                       <h3>4. 实验结果</h3>
                       <ul>
                         <li>1. 通过增加二元指令debug llvm 全流程</li>
-                        <li>2. Todo</li>
+                        <li>2. 调试LLVM的小技巧</li>
                       </ul>
 
 
                       <h3>5. 总结和展望</h3>
                       <ul>
                         <li>1. 编译器本身就是一个虚拟机</li>
-                        <li>2. LLVM 的目前的路线是什么</li>  
+                        <li>2. LLVM 的目前的路线是什么？还没解决的问题有哪些？
+                            <br></br>（1）过度设计？
+                        </li>
                       </ul>
 
                       <h3>6. 参考资料</h3>
