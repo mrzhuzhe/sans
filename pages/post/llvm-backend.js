@@ -74,7 +74,7 @@ function post({ data }) {
                         <li>3. LLVM 的目前的路线是什么？还没解决的问题有哪些？</li>
                         <li>4. 过度设计？</li>
                         <li>5. testSuite and benchmark</li>
-                        <li>6. LLVM codgen流程为 LLParse &gt; prelogue &gt;  type leglize &gt; selectDag &gt; combineDag &gt; register allocation &gt; epilogue</li>
+                        <li>6. LLVM codgen目前涉及到的流程为 LLParse &gt; prelogue &gt;  type leglize &gt; selectDag &gt; combineDag &gt; register allocation &gt; epilogue</li>
                         <li>7. 多核？</li>
                       </ul>
 
