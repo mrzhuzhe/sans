@@ -4,6 +4,13 @@ export async function getStaticProps() {
         data: {
             allPosts: [
                 {
+                  id: "llvm-backend",
+                  title: "给LLVM的CPU0后端增加一个指令",
+                  publishedDate: "2026-03-02",
+                  brief: "LLVM自定义后端流程熟悉",
+                  categories: [{name: "编译器" }]  
+                },
+                {
                   id: "llvm-passes",
                   title: "【HPC 08】如何用LLVM 插件调试 Pass",
                   publishedDate: "2025-12-18",

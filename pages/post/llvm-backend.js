@@ -8,10 +8,10 @@ export async function getStaticProps() {
   const data = {
       data: {
         Post: {
-                  id: "llvm backend",
+                  id: "llvm-backend",
                   title: "给LLVM的CPU0后端增加一个指令",
                   publishedDate: "2026-03-02",
-                  brief: "",
+                  brief: "LLVM自定义后端流程熟悉",
                   categories: [{name: "编译器" }]  
               }
       }        
